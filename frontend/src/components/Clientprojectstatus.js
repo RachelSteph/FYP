@@ -8,7 +8,6 @@ for (let i = 0; i < 23; i++) {
   listData.push({
     href: 'https://ant.design',
     title: `ant design part ${i}`,
-    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
     description:
       'Ant Design, a design language for background applications, is refined by Ant UED Team.',
     content:
@@ -21,7 +20,7 @@ function handleChange(value) {
   console.log(value); 
 }
 
-const Projects = () => {
+const Clientprojectstatus = () => {
   const { Option } = Select;
   const { Text } = Typography;
   return (
@@ -43,16 +42,8 @@ const Projects = () => {
               
               extra={
                 <Row>
-                  <Select
-                      labelInValue
-                      defaultValue={{ value: 'incomplete' }}
-                      style={{ width: 120 }}
-                      onChange={handleChange}
-                    >
-                      <Option value="incomplete">Incomplete</Option>
-                      <Option value="complete">Complete</Option>
-                  </Select>,
-                  <Button type="primary" shape="round" > Generate Report</Button>
+                  
+                  Incomplete
                 </Row>
               }
             >
@@ -65,16 +56,12 @@ const Projects = () => {
         </List.Item>
       )}
       />
-      <div style={{marginTop: 20}}>
       
-        <Text italic>Add new Project Descriptions</Text>
-        
-      </div>
     </div>
     )
   }
 
-  export default Projects;
+  export default Clientprojectstatus;
 
 
 

@@ -1,7 +1,15 @@
-import React, { useState } from 'react';
-import { Form, Input, Cascader, Select, Button, Typography} from 'antd';
+import React from 'react';
+import { Form, Input, Button, Typography, DatePicker} from 'antd';
 import axios from 'axios';
-const { Option } = Select;
+
+function onChange(value, dateString) {
+        console.log('Selected Time: ', value);
+        console.log('Formatted Selected Time: ', dateString);
+    };
+    function onOk(value) {
+            console.log('onOk: ', value);
+    }
+
 
 const formItemLayout = {
   labelCol: {
@@ -34,7 +42,7 @@ const tailFormItemLayout = {
   },
 };
 
-const ClientRegForm = () => {
+const AppForm = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -50,7 +58,7 @@ const ClientRegForm = () => {
 
   return (
     <div>
-        <Typography style={{margin: 20}}><Title level={2}>Edit Your Personal Details</Title></Typography>
+        <Typography style={{margin: 20}}><Title level={2}>Book your Appointments!</Title></Typography>
         <div style={{
             display: "flex",
             flexDirection:"row",
@@ -66,16 +74,16 @@ const ClientRegForm = () => {
         scrollToFirstError
         >
         <Form.Item
-            name="firstname"
-            label="firstname"
+            name="name"
+            label="clientname"
             rules={[
             {
                 type: 'string',
-                message: 'The input is not valid firstname',
+                message: 'The input is not valid clientname',
             },
             {
                 required: true,
-                message: 'Please input your firstname!',
+                message: 'Please input your clientname!',
             },
             ]}
             style={{
@@ -86,90 +94,50 @@ const ClientRegForm = () => {
         </Form.Item>
 
         <Form.Item
-            name="lastname"
-            label="lastname"
+            name="name"
+            label="agencyname"
             // tooltip="What do you want others to call you?"
             rules={[
             {
                 required: true,
-                message: 'Please input your last name!',
+                message: 'Please input your agency name!',
             },
             ]}
         >
             <Input />
         </Form.Item>
 
-    <Form.Item
-            name="email"
-            label="E-mail"
-            rules={[
-            {
-                type: 'email',
-                message: 'The input is not valid E-mail!',
-            },
-            {
-                required: true,
-                message: 'Please input your E-mail!',
-            },
-            ]}
-        >
-            <Input />
-        </Form.Item>
+    
 
         <Form.Item
-            name="address"
-            label="Address"
+            name="description"
+            label="Descrption"
             rules={[
             {
                 type: 'string',
-                message: 'The input is not valid address!',
+                message: 'The input is not valid description!',
             },
             {
                 required: true,
-                message: 'Please input your address!',
+                message: 'Please input the appointment description!',
             },
             ]}
         >
             <Input />
         </Form.Item>
 
-        <Form.Item
-            name="company"
-            label="Company"
-            rules={[
-            {
-                required: true,
-                message: 'Please input your company!',
-            },
-            ]}
-        >
-            <Input
-            style={{
-                width: '100%',
-                marginRight: 20
-            }}
-            />
+        <Form.Item label="DatePicker">
+            <DatePicker showTime onChange={onChange} onOk={onOk} style= {{margin: 20}} />
+
         </Form.Item>
 
-        <Form.Item
-            name="phone"
-            label="contact"
-            rules={[
-            {
-                required: true,
-                message: 'Please input your phone number!',
-            },
-            ]}
-        >
-            <Input
-            style={{
-                width: '100%',
-            }}
-            />
-        </Form.Item>
+        
         <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit" style={{borderRadius: 20}}>
-            Submit Changes
+            Submit 
+            </Button>
+            <Button type="primary" htmlType="submit" style={{borderRadius: 20, marginLeft: 15}}>
+            Cancel
             </Button>
         </Form.Item>
         </Form>
@@ -178,4 +146,4 @@ const ClientRegForm = () => {
   );
 };
 
-export default ClientRegForm;
+export default AppForm;

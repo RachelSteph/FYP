@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ClientProfile, ClientContacts
+from .models import ClientProfile
 
 # Register your models here.
 
@@ -9,10 +9,4 @@ class ClientProfileAdmin(admin.ModelAdmin):
                     'email', 'address', 'company', 'user')
 
 
-class ClientContactsAdmin(admin.ModelAdmin):
-    list = ('id', 'phonenumber')
-
-
 admin.site.register(ClientProfile, ClientProfileAdmin)
-
-admin.site.register(ClientContacts, ClientContactsAdmin)

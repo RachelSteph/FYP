@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Form, Input, Cascader, Select, Button, Typography} from 'antd';
+import React from 'react';
+import { Form, Input, Select, Button, Typography, Row, Col, Checkbox} from 'antd';
 import axios from 'axios';
 const { Option } = Select;
 
@@ -34,7 +34,7 @@ const tailFormItemLayout = {
   },
 };
 
-const ClientRegForm = () => {
+const ConsultRegForm = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -50,7 +50,7 @@ const ClientRegForm = () => {
 
   return (
     <div>
-        <Typography style={{margin: 20}}><Title level={2}>Edit Your Personal Details</Title></Typography>
+        <Typography style={{margin: 20}}><Title level={2}>Edit Your Agency Details</Title></Typography>
         <div style={{
             display: "flex",
             flexDirection:"row",
@@ -66,16 +66,16 @@ const ClientRegForm = () => {
         scrollToFirstError
         >
         <Form.Item
-            name="firstname"
-            label="firstname"
+            name="name"
+            label="Agency name"
             rules={[
             {
                 type: 'string',
-                message: 'The input is not valid firstname',
+                message: 'The input is not valid agency name',
             },
             {
                 required: true,
-                message: 'Please input your firstname!',
+                message: 'Please input your agency name!',
             },
             ]}
             style={{
@@ -86,13 +86,13 @@ const ClientRegForm = () => {
         </Form.Item>
 
         <Form.Item
-            name="lastname"
-            label="lastname"
+            name="address"
+            label="Address"
             // tooltip="What do you want others to call you?"
             rules={[
             {
                 required: true,
-                message: 'Please input your last name!',
+                message: 'Please input your address!',
             },
             ]}
         >
@@ -117,16 +117,16 @@ const ClientRegForm = () => {
         </Form.Item>
 
         <Form.Item
-            name="address"
-            label="Address"
+            name="description"
+            label="Agency Description"
             rules={[
             {
                 type: 'string',
-                message: 'The input is not valid address!',
+                message: 'The input is not valid description!',
             },
             {
                 required: true,
-                message: 'Please input your address!',
+                message: 'Please input your agency description!',
             },
             ]}
         >
@@ -134,12 +134,13 @@ const ClientRegForm = () => {
         </Form.Item>
 
         <Form.Item
-            name="company"
-            label="Company"
+            name="expertiseyears"
+            label="Experise years"
             rules={[
             {
+                type: 'number',
                 required: true,
-                message: 'Please input your company!',
+                message: 'Please input your expertise years!',
             },
             ]}
         >
@@ -167,6 +168,25 @@ const ClientRegForm = () => {
             }}
             />
         </Form.Item>
+        <Form.Item name="checkbox-group" label="Expertise">
+        <Checkbox.Group>
+          <Row>
+            <Col span={8}>
+              <Checkbox value="A" style={{ lineHeight: '32px' }}>
+                Information Technology
+              </Checkbox>
+            </Col>
+            <Col span={8}>
+              <Checkbox value="B" style={{ lineHeight: '32px' }}>
+                Business Planning
+              </Checkbox>
+            </Col>
+            
+            
+            
+          </Row>
+        </Checkbox.Group>
+      </Form.Item>
         <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit" style={{borderRadius: 20}}>
             Submit Changes
@@ -178,4 +198,4 @@ const ClientRegForm = () => {
   );
 };
 
-export default ClientRegForm;
+export default ConsultRegForm;

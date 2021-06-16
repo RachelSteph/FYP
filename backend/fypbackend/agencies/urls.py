@@ -6,9 +6,9 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'agencies', AgencyProfileList)
+
 urlpatterns = [
     path('<int:pk>/', AgencyProfileDetail.as_view()),
     path('', include(router.urls)),
-    #path('<int:pk>/', AgencyExpertiseDetail.as_view()),
-    #path('', AgencyExpertiseList.as_view()),
+
 ]

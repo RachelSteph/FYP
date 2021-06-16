@@ -32,5 +32,5 @@ class LogoutView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-class LogoutViewEx(LogoutView):
-    authentication_classes = (authentication.TokenAuthentication,)
+'''class LogoutViewEx(LogoutView):
+    authentication_classes = (authentication.TokenAuthentication,)'''

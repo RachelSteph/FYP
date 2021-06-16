@@ -11,6 +11,7 @@ class AgencyProfile(models.Model):
     address = models.CharField(max_length=100)
     description = models.TextField()
     experienceyears = models.PositiveIntegerField()
+    phonenumber = models.CharField(max_length=13)
     date_created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -23,15 +24,7 @@ class AgencyProfile(models.Model):
         return self.name
 
 
-class AgencyContacts(models.Model):
-    agencyprofile = models.ForeignKey(AgencyProfile, on_delete=models.CASCADE)
-    phonenumber = models.CharField(max_length=13)
-
-    class Meta:
-        verbose_name_plural = 'Agency Contacts'
-
-
-class AgencyExpertise(models.Model):
+'''class AgencyExpertise(models.Model):
     EXPERTISE_CATEGORIES = (
         ('IT', 'Information Technology'),
         ('BP', 'Business Planning'),
@@ -42,4 +35,4 @@ class AgencyExpertise(models.Model):
         max_length=2, choices=EXPERTISE_CATEGORIES)
 
     class Meta:
-        verbose_name_plural = 'Agency Expertise'
+        verbose_name_plural = 'Agency Expertise' '''

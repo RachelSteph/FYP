@@ -10,6 +10,7 @@ class ClientProfile(models.Model):
     email = models.EmailField(unique=True)
     address = models.CharField(max_length=100)
     company = models.CharField(max_length=100)
+    phonenumber = models.CharField(max_length=13)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,)
@@ -19,14 +20,3 @@ class ClientProfile(models.Model):
 
     def __str__(self):
         return self.firstname
-
-
-class ClientContacts(models.Model):
-    clientprofile = models.ForeignKey(ClientProfile, on_delete=models.CASCADE)
-    phonenumber = models.CharField(max_length=13)
-
-    class Meta:
-        verbose_name_plural = 'Client Contacts'
-
-    def __str__(self):
-        return self.clientprofile.firstname
