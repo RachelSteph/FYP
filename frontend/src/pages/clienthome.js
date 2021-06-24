@@ -1,9 +1,12 @@
-import { React} from 'react';
-import { Descriptions, Typography, Button, PageHeader, Divider, Tabs, Input, DatePicker, Collapse} from 'antd';
+import { React, useEffect, useState} from 'react';
+import axios from 'axios';
+import { Descriptions, Typography, Button, PageHeader, Divider, Tabs, Collapse} from 'antd';
 import ClientRegForm from '../components/Clientprofile';
 import AppForm from '../components/AppForm';
 import Clientapplist from '../components/Clientapplist';
 import Clientprojectstatus from '../components/Clientprojectstatus';
+
+
 function callback(key) {
   console.log(key);
 }
@@ -13,6 +16,23 @@ function callback(key) {
 const Tablayout = () => {
   const { TabPane } = Tabs;
   const { Panel } = Collapse;
+  const url ='http://127.0.0.1:8000/api/clients/';
+  const [client, setClient] = useState([]);
+  const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0';
+
+    
+
+    useEffect(()=>{
+        axios.get(url,
+            {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            })
+            .then(response => {
+                setClient(response.data)
+            })
+    }, [url])
   
 
   return (
@@ -34,10 +54,10 @@ const Tablayout = () => {
             </Typography>
           
           <Descriptions title="User Information" style={{margin: 30}}>
-                  <Descriptions.Item label="User Name">Rayna</Descriptions.Item>
-                  <Descriptions.Item label="Email">raynasteph@gmail.com</Descriptions.Item>
-                  <Descriptions.Item label="Address">Dar es Salaam</Descriptions.Item>
-                  <Descriptions.Item label="Company">Private</Descriptions.Item>
+                  <Descriptions.Item label="User Name">{client.username}</Descriptions.Item>
+                  <Descriptions.Item label="Email">{client.email}</Descriptions.Item>
+                  <Descriptions.Item label="Phone Number">{client.phone_number}</Descriptions.Item>
+                  <Descriptions.Item label="First Name">{client.first_name}</Descriptions.Item>
                   
           </Descriptions>        
         </TabPane>

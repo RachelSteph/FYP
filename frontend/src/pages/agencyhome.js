@@ -1,8 +1,9 @@
-import React from 'react'
-import { PageHeader, Layout, Row, Col, Descriptions, Button, Typography, Collapse, Divider, Tabs} from 'antd';
+import React, {useState, useEffect}from 'react'
+import { PageHeader, Descriptions, Button, Typography, Divider, Tabs} from 'antd';
 import Projects from '../components/projects';
 import Appointments from '../components/Appointment';
 import EditProfile from '../components/Consultprofile';
+import axios from 'axios';
 
 
 
@@ -10,7 +11,23 @@ import EditProfile from '../components/Consultprofile';
 const Agencyhome = () => {
     const { TabPane } = Tabs;
     const { Text } = Typography;
+    const url ='http://127.0.0.1:8000/api/agents/';
+    const [agency, setAgency] = useState([]);
+    const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0';
     
+    
+
+    useEffect(()=>{
+        axios.get(url,
+            {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            })
+            .then(response => {
+                setAgency(response.data)
+            })
+    }, [url])
     return (
         <div>
             <PageHeader title="Agency Home" style={{backgroundColor: 'lightgreen', height: 50, padding: 10}}
@@ -29,9 +46,10 @@ const Agencyhome = () => {
             </Typography>
           
             <Descriptions title="User Information" style={{margin: 30}}>
-                <Descriptions.Item label="User Name">Homeland</Descriptions.Item>
-                <Descriptions.Item label="Email">homland@gmail.com</Descriptions.Item>
-                <Descriptions.Item label="Address">Dar es Salaam</Descriptions.Item>    
+                <Descriptions.Item label="User Name">{agency.firstname}
+                </Descriptions.Item>
+                <Descriptions.Item label="Email">{agency.email}</Descriptions.Item>
+                <Descriptions.Item label="Phone Number">{agency.phone_number}</Descriptions.Item>    
             </Descriptions>        
         </TabPane>
         <TabPane tab="Appointments " key="2">

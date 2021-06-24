@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Select, Button, Typography, Row, Col, Checkbox} from 'antd';
+import { Form, Input, Select, Button, Typography, Row, Col, Checkbox, InputNumber} from 'antd';
 import axios from 'axios';
 const { Option } = Select;
 
@@ -133,23 +133,11 @@ const ConsultRegForm = () => {
             <Input />
         </Form.Item>
 
-        <Form.Item
-            name="expertiseyears"
-            label="Experise years"
-            rules={[
-            {
-                type: 'number',
-                required: true,
-                message: 'Please input your expertise years!',
-            },
-            ]}
-        >
-            <Input
-            style={{
-                width: '100%',
-                marginRight: 20
-            }}
-            />
+        <Form.Item label="Experience Years">
+            <Form.Item name="expyears" noStyle>
+            <InputNumber min={0}/>
+            </Form.Item>
+            <span className="ant-form-text"> years</span>
         </Form.Item>
 
         <Form.Item

@@ -1,15 +1,10 @@
 import React from 'react';
-import { Form, Input, Button, Typography, DatePicker} from 'antd';
+import { Form, Input, Button, Select} from 'antd';
 import axios from 'axios';
 
-function onChange(value, dateString) {
-        console.log('Selected Time: ', value);
-        console.log('Formatted Selected Time: ', dateString);
-    };
-    function onOk(value) {
-            console.log('onOk: ', value);
-    }
-
+function handleChange(value) {
+  console.log(value); 
+}
 
 const formItemLayout = {
   labelCol: {
@@ -42,7 +37,7 @@ const tailFormItemLayout = {
   },
 };
 
-const AppForm = () => {
+const AddProject = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -54,11 +49,11 @@ const AppForm = () => {
     })
   };
 
-  const { Title } = Typography;
+  
+  const { Option } = Select;
 
   return (
     <div>
-        <Typography style={{margin: 20}}><Title level={2}>Book your Appointments!</Title></Typography>
         <div style={{
             display: "flex",
             flexDirection:"row",
@@ -74,8 +69,8 @@ const AppForm = () => {
         scrollToFirstError
         >
         <Form.Item
-            name="clientname"
-            label="clientname"
+            name="agent"
+            label="Agency name"
             rules={[
             {
                 type: 'string',
@@ -94,13 +89,13 @@ const AppForm = () => {
         </Form.Item>
 
         <Form.Item
-            name="agencyname"
-            label="agencyname"
+            name="name"
+            label="Project name"
             // tooltip="What do you want others to call you?"
             rules={[
             {
                 required: true,
-                message: 'Please input your agency name!',
+                message: 'Please input your projects name!',
             },
             ]}
         >
@@ -119,15 +114,25 @@ const AppForm = () => {
             },
             {
                 required: true,
-                message: 'Please input the appointment description!',
+                message: 'Please input the project description!',
             },
             ]}
         >
             <Input />
         </Form.Item>
 
-        <Form.Item label="DatePicker">
-            <DatePicker showTime onChange={onChange} onOk={onOk} style= {{margin: 20}} />
+        <Form.Item 
+            name ="status"
+            label="Project Status">
+              <Select
+                        labelInValue
+                        defaultValue={{ value: 'incomplete' }}
+                        style={{ width: 120 }}
+                        onChange={handleChange}
+                      >
+                        <Option value="incomplete">Incomplete</Option>
+                        <Option value="complete">Complete</Option>
+                    </Select>
 
         </Form.Item>
 
@@ -146,4 +151,4 @@ const AppForm = () => {
   );
 };
 
-export default AppForm;
+export default AddProject;

@@ -1,7 +1,8 @@
-import React from 'react';
-import {Avatar, Typography, Row, Col, Button, Rate, PageHeader} from 'antd';
-import { UserOutlined, CalendarOutlined, PhoneOutlined } from '@ant-design/icons';
+import React, {useState, useEffect} from 'react';
+import { Typography, Row, Col, Button, Rate, PageHeader} from 'antd';
+import { CalendarOutlined, PhoneOutlined } from '@ant-design/icons';
 import Comments  from '../components/Comments';
+import axios from 'axios';
 
 const list = [
     {
@@ -17,14 +18,31 @@ const list = [
 
 const Agencyprofile = () => {
     const { Text } = Typography;
+    const url ='http://127.0.0.1:8000/api/agents/';
+    const [agencyprof, setAgencyprof] = useState([]);
+    const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0';
+
+    
+
+    useEffect(()=>{
+        axios.get(url,
+            {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            })
+            .then(response => {
+                setAgencyprof(response.data)
+            })
+    }, [url])
     return (
         <div>
             <PageHeader className="site-page-header" title="Agency Profile" style={{backgroundColor: 'lightgreen', height: 50, padding: 10}}/>
             <Row gutter={[16, 8]} style={{marginLeft: 10}}>
-                <Col span={12} >
-                    <Avatar style={{margin: 20}} size ={100}icon={<UserOutlined />} />
-                    <Typography Style={{margin: 40}}><p>Agency Name</p></Typography>
-                    <Typography Style={{margin: 40}}><p>Agency Descriptions here</p></Typography>
+                <Col span={12}>
+                    
+                    <Typography style={{marginTop: 20}}><h2>Agency Name</h2></Typography>
+                    <Typography style={{marginTop: 20}}><p>Agency Description</p></Typography>
                     <Rate disabled defaultValue ={3} style={{margin: 10}}/>
                     
                 </Col>

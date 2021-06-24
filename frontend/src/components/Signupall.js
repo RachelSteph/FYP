@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, Typography } from 'antd';
 import axios from 'axios';
+import { StarTwoTone } from '@ant-design/icons';
 const { Option } = Select;
 
 const formItemLayout = {
@@ -34,12 +35,12 @@ const tailFormItemLayout = {
   },
 };
 
-const RegistrationForm = () => {
+const AllRegForm = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
     console.log('Received values of form: ', values);
-    axios.post('http://127.0.0.1:8000/api/agents/',values).then((results) => {
+    axios.post('your url',values).then((results) => {
         console.log(results)
     }).catch((err) => {
         console.log(err)
@@ -53,7 +54,7 @@ const RegistrationForm = () => {
     
   return (
       <div>
-        <Typography><Title level={2}>Consultant Sign Up Form</Title></Typography>
+        <Typography><Title level={2} style={{margin: 10}}>Sign Up</Title></Typography>
         <div style={{
             display: "flex",
             flexDirection:"row",
@@ -72,35 +73,21 @@ const RegistrationForm = () => {
             scrollToFirstError
             >
             <Form.Item
-                name="firstname"
-                label="firstname"
+                name="username"
+                label="User Name"
                 rules={[
                 {
                     type: 'string',
-                    message: 'The input is not valid firstname',
+                    message: 'The input is not valid username',
                 },
                 {
                     required: true,
-                    message: 'Please input your firstname!',
+                    message: 'Please input your username!',
                 },
                 ]}
                 style={{
                     width: 500
                 }}
-            >
-                <Input />
-            </Form.Item>
-
-            <Form.Item
-                name="lastname"
-                label="lastname"
-                // tooltip="What do you want others to call you?"
-                rules={[
-                {
-                    required: true,
-                    message: 'Please input your last name!',
-                },
-                ]}
             >
                 <Input />
             </Form.Item>
@@ -123,16 +110,16 @@ const RegistrationForm = () => {
             </Form.Item>
 
             <Form.Item
-                name="address"
-                label="Address"
+                name="password"
+                label="Password"
                 rules={[
                 {
                     type: 'string',
-                    message: 'The input is not valid address!',
+                    message: 'The input is not valid password!',
                 },
                 {
                     required: true,
-                    message: 'Please input your address!',
+                    message: 'Please input your password!',
                 },
                 ]}
             >
@@ -140,8 +127,8 @@ const RegistrationForm = () => {
             </Form.Item>
 
             <Form.Item
-                name="company"
-                label="Company"
+                name="password"
+                label=" Confirm password"
                 rules={[
                 {
                     required: true,
@@ -156,22 +143,24 @@ const RegistrationForm = () => {
                 />
             </Form.Item>
 
+            
             <Form.Item
-                name="phone"
-                label="contact"
-                rules={[
-                {
-                    required: true,
-                    message: 'Please input your phone number!',
-                },
-                ]}
-            >
-                <Input
-                style={{
+                name='role'
+                label ="User Type"
+                    
+                rules={[{ required: true,}]}
+                style ={{
                     width: '100%',
+                    marginTop: 10,
+                    justifyContent: 'flex-start',
                 }}
-                />
+                >
+                <Select placeholder="Select Role">
+                    <Option value="Agency">Agency</Option>
+                    <Option value="Client">Client</Option>
+                </Select>
             </Form.Item>
+            
             <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit">
                 Register
@@ -183,5 +172,5 @@ const RegistrationForm = () => {
   );
 };
 
-export default RegistrationForm;
+export default AllRegForm;
 

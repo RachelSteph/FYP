@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { List,  Select, Button, Row, Typography } from 'antd';
+import axios from 'axios';
+import AddProject from './Addproject';
 
 
-
-const listData = [];
+/*const listData = [];
 for (let i = 0; i < 23; i++) {
   listData.push({
     href: 'https://ant.design',
@@ -14,7 +15,8 @@ for (let i = 0; i < 23; i++) {
     content:
       'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
   });
-}
+}*/
+
 
 
 function handleChange(value) {
@@ -24,6 +26,23 @@ function handleChange(value) {
 const Projects = () => {
   const { Option } = Select;
   const { Text } = Typography;
+  const url ='http://127.0.0.1:8000/api/projects/';
+  const [projects, setProjects] = useState([]);
+  const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0';
+
+    
+
+    useEffect(()=>{
+        axios.get(url,
+            {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            })
+            .then(response => {
+                setProjects(response.data)
+            })
+    }, [url])
   return (
     <div>
         <List
@@ -35,11 +54,11 @@ const Projects = () => {
               },
               pageSize: 3,
             }}
-            dataSource={listData}
+            dataSource={projects}
             
           renderItem={item => (
             <List.Item
-              key={item.title}
+              key={item.name}
               
               extra={
                 <Row>
@@ -58,16 +77,17 @@ const Projects = () => {
             >
           <List.Item.Meta
             
-            title={<a href={item.href}>{item.title}</a>}
-            description={item.description}
+            title={<a href={item.href}>{item.name}</a>}
+            
           />
-          {item.content}
+          {item.description}
         </List.Item>
       )}
       />
       <div style={{marginTop: 20}}>
       
-        <Text italic>Add new Project Descriptions</Text>
+        <Text strong italic>Add new Project Details</Text>
+        <AddProject />
         
       </div>
     </div>

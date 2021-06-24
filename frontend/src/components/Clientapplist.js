@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
 import { List,  Row, Button, Typography } from 'antd';
 
 
 
 
 
-const listData = [];
+/*const listData = [];
 for (let i = 0; i < 23; i++) {
   listData.push({
     
@@ -16,23 +17,33 @@ for (let i = 0; i < 23; i++) {
     appointmenttime:
       '12:45pm',
   });
-}
+}*/
 
 
 
 
 const Clientapplist = () => {
-  const { Text } = Typography;
+  //const { Text } = Typography;
+  const url ='http://127.0.0.1:8000/api/appointments/';
+  const [clientapp, setClientapp] = useState([]);
+  const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0';
+
+    
+
+    useEffect(()=>{
+        axios.get(url,
+            {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            })
+            .then(response => {
+                setClientapp(response.data)
+            })
+    }, [url])
   
   return (
-    <div>
-        <Row style={{marginTop: 20}}>
-          <Text italic> View your Appointments Schedule </Text>
-          <Button style={{marginLeft: 30}}>Calendar</Button>
-          
-
-        </Row>
-        
+    <div>     
         <List
             itemLayout="vertical"
             size="large"
@@ -42,7 +53,7 @@ const Clientapplist = () => {
               },
               pageSize: 3,
             }}
-            dataSource={listData}
+            dataSource={clientapp}
             
           renderItem={item => (
             
@@ -60,13 +71,13 @@ const Clientapplist = () => {
             >
           <List.Item.Meta
             
-            title={item.title}
+            //title={item.title}
             
             description={item.description}
           />
-          {item.agencyusername} 
+          {item.agent} 
 
-          {item.appointmenttime}
+          {item.start_date}
         </List.Item>
       )}
     />

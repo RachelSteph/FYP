@@ -13,6 +13,7 @@ import Clientprofile from './components/Clientprofile';
 import Clienthome from './pages/clienthome';
 import Agencyprofile from './pages/agencyprofile';
 import Agencyhome from './pages/agencyhome';
+import AllRegForm from './components/Signupall';
 
 
 
@@ -33,6 +34,8 @@ function App(){
             <Route path="/projects" component={ProjectPage}exact/>
             <Route path="/clientprofile" component={Clientprofile}exact/>
             <Route path="/agencyprofile" component={Agencyprofile} exact/>
+            <Route path="/usersignup" component={AllRegForm} exact/>
+
             
             
             
