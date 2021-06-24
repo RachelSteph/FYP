@@ -47,7 +47,7 @@ const Appointments = () => {
     }, [url])
 
     useEffect(()=>{
-        axios.options(url,
+        axios.delete('http://127.0.0.1:8000/api/appointments/',
             {
                 headers: {
                     'Authorization': `Bearer ${accessToken}`
