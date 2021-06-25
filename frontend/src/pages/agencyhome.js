@@ -4,6 +4,7 @@ import Projects from '../components/projects';
 import Appointments from '../components/Appointment';
 import EditProfile from '../components/Consultprofile';
 import axios from 'axios';
+import { useHistory } from 'react-router';
 
 
 
@@ -11,10 +12,13 @@ import axios from 'axios';
 const Agencyhome = () => {
     const { TabPane } = Tabs;
     const { Text } = Typography;
+    const history = useHistory()
     const url ='http://127.0.0.1:8000/api/agents/';
     const [agency, setAgency] = useState([]);
     const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0';
-    
+    const handleRoute = () => {
+        history.push("/")
+    }
     
 
     useEffect(()=>{
@@ -33,7 +37,7 @@ const Agencyhome = () => {
             <PageHeader title="Agency Home" style={{backgroundColor: 'lightgreen', height: 50, padding: 10}}
                 extra= {[
                     <Button type="primary" shape="round" style=
-                    {{backgroundColor: 'grey'}}> Log Out</Button>,
+                    {{backgroundColor: 'grey'}} onClick={handleRoute}> Log Out</Button>,
 
                 ]}
             >     

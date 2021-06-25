@@ -3,6 +3,7 @@ import { Typography, Row, Col, Button, Rate, PageHeader} from 'antd';
 import { CalendarOutlined, PhoneOutlined } from '@ant-design/icons';
 import Comments  from '../components/Comments';
 import axios from 'axios';
+import { AssignmentSharp } from '@material-ui/icons';
 
 const list = [
     {
@@ -40,7 +41,14 @@ const Agencyprofile = () => {
             <PageHeader className="site-page-header" title="Agency Profile" style={{backgroundColor: 'lightgreen', height: 50, padding: 10}}/>
             <Row gutter={[16, 8]} style={{marginLeft: 10}}>
                 <Col span={12}>
-                    
+                    <ul>
+                        {agencyprof.map(item => (
+                            <>
+                                <Typography style={{marginTop: 20}}><h2>{item.first_name}</h2></Typography>
+                                <Typography style={{marginTop: 20}}><p>{item.description}</p></Typography>
+                            </>
+                        ))}
+                    </ul>
                     <Typography style={{marginTop: 20}}><h2>Agency Name</h2></Typography>
                     <Typography style={{marginTop: 20}}><p>Agency Description</p></Typography>
                     <Rate disabled defaultValue ={3} style={{margin: 10}}/>
