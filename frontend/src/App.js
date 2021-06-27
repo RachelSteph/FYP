@@ -14,7 +14,7 @@ import Clienthome from './pages/clienthome';
 import Agencyprofile from './pages/agencyprofile';
 import Agencyhome from './pages/agencyhome';
 import AllRegForm from './components/Signupall';
-
+import Report from './components/pdfview';
 
 
 
@@ -35,22 +35,11 @@ function App(){
             <Route path="/clientprofile" component={Clientprofile}exact/>
             <Route path="/agencyprofile" component={Agencyprofile} exact/>
             <Route path="/usersignup" component={AllRegForm} exact/>
-
-            
-            
-            
-
-
-           
-
-
+            <Route path="/reportpdf" component={Report} exact/>
 
             
          </Switch>
 
-       
-      
-         
       </Router>
    );
 }

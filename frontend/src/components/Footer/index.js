@@ -1,5 +1,5 @@
 import React from 'react';
-import {FooterContainer, FooterWrap, FooterLinksContainer, FooterLinkItems, FooterLinksWrapper, FooterLinkTitle, FooterLink, SocialMedia, SocialMediaWrap, SocialLogo,WebsiteRights, SocialIcons, SocialIconLink} from './FooterElements';
+import {FooterContainer, FooterWrap, FooterLinksContainer, FooterLinkItems, FooterLinksWrapper, FooterLinkTitle, FooterLink, SocialMedia, SocialMediaWrap, SocialLogo, SocialIcons, SocialIconLink} from './FooterElements';
 import {FaFacebook, FaInstagram, FaTwitter, FaLinkedin} from 'react-icons/fa';
 
 const Footer = () => {

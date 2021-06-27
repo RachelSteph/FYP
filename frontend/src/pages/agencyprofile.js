@@ -3,7 +3,7 @@ import { Typography, Row, Col, Button, Rate, PageHeader} from 'antd';
 import { CalendarOutlined, PhoneOutlined } from '@ant-design/icons';
 import Comments  from '../components/Comments';
 import axios from 'axios';
-import { AssignmentSharp } from '@material-ui/icons';
+
 
 const list = [
     {

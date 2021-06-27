@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { List, Button, Row, Typography, Input} from 'antd';
+import { List, Button, Row, Typography} from 'antd';
 import axios from 'axios';
 import { useHistory } from 'react-router';
 
@@ -16,6 +16,7 @@ const Agencylist = () => {
   const history = useHistory();
   const url ='http://127.0.0.1:8000/api/agents/';
   const [agents, setAgents] = useState([]);
+  
   const handleRoute = () =>{
       history.push("/agencyprofile")
   }
@@ -41,7 +42,7 @@ const Agencylist = () => {
   return (
     <div>
         <Row style={{margin: 10}}>
-            <Text strong italic>List Of Agencies</Text>
+            <Text strong italic><h2>List Of Agencies</h2></Text>
             
             
 

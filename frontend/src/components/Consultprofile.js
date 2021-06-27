@@ -1,7 +1,7 @@
 import React from 'react';
-import { Form, Input, Select, Button, Typography, Row, Col, Checkbox, InputNumber} from 'antd';
+import { Form, Input, Button, Typography, Row, Col, Checkbox, InputNumber} from 'antd';
 import axios from 'axios';
-const { Option } = Select;
+
 
 const formItemLayout = {
   labelCol: {

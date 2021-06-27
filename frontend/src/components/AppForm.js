@@ -43,16 +43,43 @@ const tailFormItemLayout = {
 };
 
 const AppForm = () => {
+  const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0';
+
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-    axios.post('your url',values).then((results) => {
-        console.log(results)
-    }).catch((err) => {
-        console.log(err)
+    fetch("http://127.0.0.1:8000/api/appointments/", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        'Authorization': `Bearer ${accessToken}`
+      },
+      body: JSON.stringify({
+        agent: values.agent,
+        client: values.client,
+        description: values.description,
+        start_date: values.date,
+        end_date: values.date,
+        status: values.status,
+
+      }),
     })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        //sessionStorage.setItem("token", response.token);
+       
+        //history.replace("/clientdrawer");
+      })
+      .catch((error) => {
+        console.log("error from submitting: " + error);
+      });
   };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
 
   const { Title } = Typography;
 
@@ -65,6 +92,7 @@ const AppForm = () => {
             justifyContent:'flex-start',
             //   alignContent:'center'
             marginTop:20
+
         }} >
         <Form
         {...formItemLayout}
@@ -72,10 +100,11 @@ const AppForm = () => {
         name="register"
         onFinish={onFinish}
         scrollToFirstError
+        onFinishFailed={onFinishFailed}
         >
         <Form.Item
-            name="clientname"
-            label="clientname"
+            name="client"
+            label="Client Name"
             rules={[
             {
                 type: 'string',
@@ -94,8 +123,8 @@ const AppForm = () => {
         </Form.Item>
 
         <Form.Item
-            name="agencyname"
-            label="agencyname"
+            name="agent"
+            label="Agency Name"
             // tooltip="What do you want others to call you?"
             rules={[
             {
@@ -126,18 +155,23 @@ const AppForm = () => {
             <Input />
         </Form.Item>
 
-        <Form.Item label="DatePicker">
+         <Form.Item label="Start Date">
             <DatePicker showTime onChange={onChange} onOk={onOk} style= {{margin: 20}} />
 
         </Form.Item>
+        <Form.Item label="End Date">
+            <DatePicker showTime onChange={onChange} onOk={onOk} style= {{margin: 20}} />
+
+        </Form.Item>
+
 
         
         <Form.Item {...tailFormItemLayout}>
             <Button type="primary" htmlType="submit" style={{borderRadius: 20}}>
             Submit 
             </Button>
-            <Button type="primary" htmlType="submit" style={{borderRadius: 20, marginLeft: 15}}>
-            Cancel
+            <Button type="primary" htmlType="reset" style={{borderRadius: 20, marginLeft: 15}}>
+            Reset
             </Button>
         </Form.Item>
         </Form>

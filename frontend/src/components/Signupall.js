@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { Form, Input, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, Typography } from 'antd';
+import React from 'react';
+import { Form, Input,Select,Button, Typography } from 'antd';
 import axios from 'axios';
-import { StarTwoTone } from '@ant-design/icons';
 const { Option } = Select;
 
 const formItemLayout = {

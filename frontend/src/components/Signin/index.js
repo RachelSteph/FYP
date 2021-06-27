@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+//import { useHistory } from "react-router-dom";
 import { Form, Input, Button, Checkbox } from "antd";
 
 
@@ -21,13 +21,15 @@ const tailLayout = {
 const SignIn = () => {
   //const { user } = this.state;
 
-  const history = useHistory();
+  //const history = useHistory();
 
   const onFinish = (values) => {
-    console.log("Success:", values);
-    console.log(values.username);
-    console.log(values.password);
-    fetch("http://127.0.0.1:8000/api-token-auth/", {
+    //console.log("Success:", values);
+    //console.log(values.username);
+    //console.log(values.password);
+
+    
+    fetch("http://127.0.0.1:8000/api/auth/login/", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -40,13 +42,24 @@ const SignIn = () => {
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
-        sessionStorage.setItem("token", response.token);
-        history.replace("/clientdrawer");
+        //sessionStorage.setItem("token", response.token);
+       
+        //history.replace("/clientdrawer");
       })
       .catch((error) => {
         console.log("error from submitting: " + error);
       });
   };
+  const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0';
+
+    fetch("http://127.0.0.1:8000/api/agents/", {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        'Authorization': `Bearer ${accessToken}`
+      },
+      
+    })
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

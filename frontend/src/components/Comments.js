@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { Comment, Avatar, Form, Button, List, Input, Tooltip } from 'antd';
-import moment from 'moment';
+import { Comment, Form, Button, List, Input } from 'antd';
+
 
 /*const data = [
   {
@@ -44,6 +44,7 @@ const Comments = () => {
   const [comments, setComments] = useState([]);
   const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0';
 
+  
 
   useEffect(()=>{
         axios.get(url,
@@ -77,7 +78,8 @@ const Comments = () => {
         />
       
         <Form.Item>
-          <TextArea rows={4} style={{margin: 10, width: 1300}}/>
+          <TextArea rows={4} style={{margin: 10, width: 1300}}
+          />
         </Form.Item>
         <Form.Item>
           <Button htmlType="submit"  type="primary" style={{marginLeft: 20}}>
