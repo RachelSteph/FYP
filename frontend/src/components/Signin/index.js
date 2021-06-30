@@ -74,15 +74,18 @@ const SignIn = () => {
           alignItems: "center",
           width: "100%",
           height: "100vh",
+          
         }}
       >
+      
         <Form
-          style={{ width: "50%" }}
+          style={{ width: "50%", justifyContent: 'center', margin: 40, alignItems: 'center' }}
           {...layout}
           name="basic"
           initialValues={{ remember: true }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
+          
         >
           <Form.Item
             label="Username"
@@ -101,62 +104,21 @@ const SignIn = () => {
           </Form.Item>
 
           <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-            <Checkbox>Remember me</Checkbox>
+            <Checkbox 
+            >Remember me</Checkbox>
           </Form.Item>
 
           <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" style={{borderRadius: 20}}>
               Submit
             </Button>
           </Form.Item>
         </Form>
       </div>
+      
     </>
   );
 };
 
-// <Formwrap>
-//     <Icon to="/">consulting service system</Icon>
-//     <FormContent>
-//         <Form  onSubmit={(values)=>{
 
-//             console.log("here");
-
-//             fetch("http://127.0.0.1:8000/api/token/", {
-//                  method: "POST",
-//                  headers: {
-//                      // "Content-type": "application/json"
-//                  },
-//                  body: JSON.stringify({
-//                      "username": values.username,
-//                      "password": values.password,
-//                      })
-//                  }).then(response=> response.json()).then(response => {
-//                      console.log(response);
-//                  });
-
-//             /*if (user === null) {
-//                 return <SignIn/>;
-//             }
-//             if (user.role === 'client') {
-//                 return <clientdrawer user={user}/>;
-//             }
-//             return <consultantdrawer user={user}/>;*/
-
-//             }
-
-//             }>
-//             <FormH1>Sign in to your Account</FormH1>
-//             <FormLabel htmlFor='for'>Username</FormLabel>
-//             <FormInput type='text' required></FormInput>
-//             <FormLabel htmlFor='for'>Password</FormLabel>
-//             <FormInput type='password' required></FormInput>
-//             <FormButton type='submit' value="values"
-
-//             >Log in</FormButton>
-//             <Text>Forgot password</Text>
-
-//         </Form>
-//     </FormContent>
-// </Formwrap>
 export default SignIn;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Input, Button, Typography } from 'antd';
-import axios from 'axios';
+
 
 const formItemLayout = {
   labelCol: {
@@ -37,19 +37,42 @@ const RegistrationForm = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    console.log('Received values of form: ', values);
-    axios.post('your url',values).then((results) => {
-        console.log(results)
-    }).catch((err) => {
-        console.log(err)
+    const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0';
+    
+    fetch("http://127.0.0.1:8000/api/clients/", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        'Authorization': `Bearer ${accessToken}`
+      },
+      body: JSON.stringify({
+        first_name: values.first_name,
+        last_name: values.last_name,
+        email: values.email,
+        username: values.username,
+        password: values.password,
+        phone_number: values.phone_number,
+        address: values.address,
+      }),
     })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        //sessionStorage.setItem("token", response.token);
+       
+        //history.replace("/clientdrawer");
+      })
+      .catch((error) => {
+        console.log("error from submitting: " + error);
+      });
   };
+
 
     const { Title } = Typography;
 
 
     
-   
+    
   return (
       <div>
         <Typography><Title level={2}>Client Sign Up Form</Title></Typography>
@@ -58,7 +81,9 @@ const RegistrationForm = () => {
             flexDirection:"row",
             justifyContent:'flex-start',
             //   alignContent:'center'
-            marginTop:20
+            marginTop:20,
+            
+          
         }} >
             
             <Form
@@ -69,8 +94,8 @@ const RegistrationForm = () => {
             scrollToFirstError
             >
             <Form.Item
-                name="firstname"
-                label="firstname"
+                name="first_name"
+                label="First Name"
                 rules={[
                 {
                     type: 'string',
@@ -87,24 +112,46 @@ const RegistrationForm = () => {
             >
                 <Input />
             </Form.Item>
+             <Form.Item
+                name="last_name"
+                label="Last Name"
+                rules={[
+                {
+                  type: 'string', 
+                  message: 'Please input your lastname!',
+                },
+                ]}
+            >
+                <Input
+                style={{
+                    width: '100%',
+                }}
+                />
+            </Form.Item>
 
             <Form.Item
-                name="lastname"
-                label="lastname"
-                // tooltip="What do you want others to call you?"
+                name="username"
+                label="Username"
                 rules={[
                 {
                     required: true,
-                    message: 'Please input your last name!',
+                    message: 'Please input your username!',
                 },
                 ]}
             >
                 <Input />
             </Form.Item>
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[{ required: true, message: "Please input your password!" }]}
+            >
+                <Input.Password />
+            </Form.Item>
 
-        <Form.Item
+            <Form.Item
                 name="email"
-                label="E-mail"
+                label="Email"
                 rules={[
                 {
                     type: 'email',
@@ -136,29 +183,15 @@ const RegistrationForm = () => {
                 <Input />
             </Form.Item>
 
-            <Form.Item
-                name="company"
-                label="Company"
-                rules={[
-                {
-                    required: true,
-                    message: 'Please input your company!',
-                },
-                ]}
-            >
-                <Input
-                style={{
-                    width: '100%',
-                }}
-                />
-            </Form.Item>
+           
 
             <Form.Item
-                name="phone"
+                name="phone_number"
                 label="contact"
                 rules={[
                 {
                     required: true,
+                    
                     message: 'Please input your phone number!',
                 },
                 ]}
@@ -169,10 +202,13 @@ const RegistrationForm = () => {
                 }}
                 />
             </Form.Item>
+
+            
+            
+            
             <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit">
-                Submit
-                
+                Register
                 </Button>
             </Form.Item>
             </Form>

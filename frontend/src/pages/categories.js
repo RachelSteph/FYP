@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, Col, Row, PageHeader } from 'antd';
 import image from '../images/cyber.jpg';
 import Image from '../images/businessplanning.jpg';
-import Searchbar from '../components/searchbar';
 import Agencylist from '../components/Agencylist';
 //import CatTable from '../components/CatTable';
 
@@ -16,7 +15,7 @@ const Categories = () => {
     return (
         <div>
             <PageHeader title="Categories" style={{backgroundColor: 'lightgreen', height: 50, padding: 10}}/>
-            <Searchbar/>
+           
             
             <div className="wrapper" style = {{margin: 10, alignContent: 'center'}}>
                 <div className="site-card-wrapper" style = {{alignContent: 'center', margin: 20}}>
