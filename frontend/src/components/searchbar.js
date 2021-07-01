@@ -1,3 +1,4 @@
+//SEARCH BAR ON CATEGORIES PAGE
 import React from "react";
 import { Input } from "antd";
 

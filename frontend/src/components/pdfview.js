@@ -1,55 +1,28 @@
 import React, { useEffect, useState } from "react";
 
 const Reportpdf = () => {
-   const [reports, setReports] = useState([]);
-   
-   useEffect(() => {
-      const getAllReports = async () => {
-         try {
-            // Fetching movies in some way
-         } catch (err) {
-            console.log(`Error fetching movies: ${err}`);
-         }
-      };
-      getAllReports();
-   }, []);   return (
-      <div>
-         {/* TABLE HERE */}
-         <div className="row">
-            <button className="btn">
-               Download Pdf
-            </button>
-         </div>
+  const [reports, setReports] = useState([]);
+
+  useEffect(() => {
+    const getAllReports = async () => {
+      try {
+        // Fetching movies in some way
+      } catch (err) {
+        console.log(`Error fetching movies: ${err}`);
+      }
+    };
+    getAllReports();
+  }, []);
+  return (
+    <div>
+      {/* TABLE HERE */}
+      <div className="row">
+        <button className="btn">Download Pdf</button>
       </div>
-   );
-};export default Reportpdf;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </div>
+  );
+};
+export default Reportpdf;
 
 /*import React, { useState, useEffect } from "react";
 import axios from "axios";

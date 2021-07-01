@@ -1,3 +1,4 @@
+//  LISTS ALL AGENCIES AVAILABLE FOR SEARCHING IN CATEGORIES PAGE
 import React, { useEffect, useState } from "react";
 import { List, Button, Row, Typography } from "antd";
 import axios from "axios";
@@ -79,6 +80,9 @@ const Agencylist = () => {
               <Button
                 type="primary"
                 shape="round"
+                style={{
+                  backgroundColor: "mediumseagreen",
+                }}
                 onClick={() => {
                   handleRoute(item);
                 }}

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Select } from "antd";
 import axios from "axios";
 
 function handleChange(value) {
-  console.log(value);
+  console.log(`selected ${value}`);
 }
 
 const formItemLayout = {
@@ -39,6 +39,7 @@ const tailFormItemLayout = {
 
 const AddProject = () => {
   const [form] = Form.useForm();
+  //const [optionValue, setOptionValue] = useState("");
 
   const onFinish = (values) => {
     const accessToken =
@@ -68,6 +69,11 @@ const AddProject = () => {
         console.log("error from submitting: " + error);
       });
   };
+
+  /*const handleChange = (e) => {
+    console.log(e.target.value);
+    setOptionValue(e.target.value);
+  };*/
 
   const { Option } = Select;
 
@@ -147,8 +153,8 @@ const AddProject = () => {
               style={{ width: 120 }}
               onChange={handleChange}
             >
-              <Option value="INCOMPLETE">Incomplete</Option>
-              <Option value="COMPLETE">Complete</Option>
+              <Option value="INCOMPLETE">INCOMPLETE</Option>
+              <Option value="COMPLETE">COMPLETE</Option>
             </Select>
           </Form.Item>
 

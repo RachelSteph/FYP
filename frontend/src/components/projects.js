@@ -3,6 +3,7 @@ import { List, Select, Button, Row, Typography } from "antd";
 import axios from "axios";
 import AddProject from "./Addproject";
 import { SaveOutlined } from "@ant-design/icons";
+import Report from "./Report/reportgenerator";
 
 /*const listData = [];
 for (let i = 0; i < 23; i++) {
@@ -17,18 +18,19 @@ for (let i = 0; i < 23; i++) {
   });
 }*/
 
-function handleChange(value) {
-  console.log(value);
-}
-
 const Projects = () => {
   const { Option } = Select;
   const { Text } = Typography;
   const url = "http://127.0.0.1:8000/api/projects/";
   const [projects, setProjects] = useState([]);
+  const [newprojects, setNewProjects] = useState("");
+
   const accessToken =
     "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0";
 
+  function handleChange(value) {
+    console.log(`selected ${value}`);
+  }
   useEffect(() => {
     axios
       .get(url, {
@@ -40,6 +42,7 @@ const Projects = () => {
         setProjects(response.data);
       });
   }, [url]);
+
   return (
     <div>
       <List
@@ -57,20 +60,8 @@ const Projects = () => {
             key={item.name}
             extra={
               <Row>
-                <Select
-                  labelInValue
-                  defaultValue={{ value: "INCOMPLETE" }}
-                  style={{ width: 120 }}
-                  onChange={handleChange}
-                >
-                  <Option value="INCOMPLETE">Incomplete</Option>
-                  <Option value="COMPLETE">Complete</Option>
-                </Select>
-                ,
-                <Button type="primary" shape="round">
-                  {" "}
-                  Generate Report
-                </Button>
+                <div style={{ marginRight: 20 }}>{item.status}</div>
+                <Report />
               </Row>
             }
           >

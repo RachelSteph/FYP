@@ -1,7 +1,7 @@
+// LOG IN PAGE
 import React from "react";
-//import { useHistory } from "react-router-dom";
-import { Form, Input, Button, Checkbox } from "antd";
-
+import { useHistory } from "react-router-dom";
+import { Form, Input, Button, Checkbox, Typography } from "antd";
 
 const layout = {
   labelCol: {
@@ -19,16 +19,7 @@ const tailLayout = {
 };
 
 const SignIn = () => {
-  //const { user } = this.state;
-
-  //const history = useHistory();
-
   const onFinish = (values) => {
-    //console.log("Success:", values);
-    //console.log(values.username);
-    //console.log(values.password);
-
-    
     fetch("http://127.0.0.1:8000/api/auth/login/", {
       method: "POST",
       headers: {
@@ -43,27 +34,20 @@ const SignIn = () => {
       .then((response) => {
         console.log(response);
         //sessionStorage.setItem("token", response.token);
-       
+
         //history.replace("/clientdrawer");
       })
       .catch((error) => {
         console.log("error from submitting: " + error);
       });
   };
-  const accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0';
-
-    fetch("http://127.0.0.1:8000/api/agents/", {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        'Authorization': `Bearer ${accessToken}`
-      },
-      
-    })
+  const accessToken =
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0";
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+  const { Text } = Typography;
 
   return (
     <>
@@ -72,20 +56,35 @@ const SignIn = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          width: "100%",
-          height: "100vh",
-          
         }}
       >
-      
+        <Text style={{ marginTop: 60 }}>
+          <h2>LOG IN</h2>
+          <p>Please fill in your details correctly to log in.</p>
+        </Text>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          height: "50vh",
+        }}
+      >
         <Form
-          style={{ width: "50%", justifyContent: 'center', margin: 40, alignItems: 'center' }}
+          style={{
+            width: "50%",
+            justifyContent: "center",
+            margin: 40,
+            alignItems: "center",
+          }}
           {...layout}
           name="basic"
           initialValues={{ remember: true }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
-          
         >
           <Form.Item
             label="Username"
@@ -104,21 +103,23 @@ const SignIn = () => {
           </Form.Item>
 
           <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-            <Checkbox 
-            >Remember me</Checkbox>
+            <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
           <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit" style={{borderRadius: 20}}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              //onClick={onSubmit}
+              style={{ borderRadius: 20, backgroundColor: "mediumseagreen" }}
+            >
               Submit
             </Button>
           </Form.Item>
         </Form>
       </div>
-      
     </>
   );
 };
-
 
 export default SignIn;
