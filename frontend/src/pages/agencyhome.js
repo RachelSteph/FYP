@@ -12,6 +12,7 @@ import Appointments from "../components/Appointment";
 import EditProfile from "../components/Consultprofile";
 import axios from "axios";
 import { useHistory } from "react-router";
+import Charts from "../components/charts";
 
 const Agencyhome = () => {
   const { TabPane } = Tabs;

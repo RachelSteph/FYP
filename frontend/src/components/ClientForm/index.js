@@ -78,7 +78,7 @@ const RegistrationForm = () => {
           marginLeft: 20,
         }}
       >
-        <Title level={2}>Client Sign Up Form</Title>
+        <Title level={2}>Client Registration Form</Title>
         <p>
           A registration form for Clients. Please register Your Details
           correctly!
@@ -218,6 +218,17 @@ const RegistrationForm = () => {
               }}
             >
               Register
+            </Button>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{
+                borderRadius: 20,
+                margin: 10,
+                backgroundColor: "mediumseagreen",
+              }}
+            >
+              Clear all details
             </Button>
           </Form.Item>
         </Form>

@@ -1,8 +1,8 @@
 // LOG IN PAGE
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Form, Input, Button, Checkbox, Typography } from "antd";
-
+import axios from "axios";
 const layout = {
   labelCol: {
     span: 8,
@@ -19,7 +19,11 @@ const tailLayout = {
 };
 
 const SignIn = () => {
+  const { history } = useHistory();
+
   const onFinish = (values) => {
+    const accessToken =
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0";
     fetch("http://127.0.0.1:8000/api/auth/login/", {
       method: "POST",
       headers: {
@@ -33,16 +37,15 @@ const SignIn = () => {
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
+
         //sessionStorage.setItem("token", response.token);
 
-        //history.replace("/clientdrawer");
+        //history.replace("/clienthome");
       })
       .catch((error) => {
         console.log("error from submitting: " + error);
       });
   };
-  const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0";
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

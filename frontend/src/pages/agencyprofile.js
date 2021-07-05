@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Row, Col, Button, Rate, PageHeader } from "antd";
+import { Typography, Row, Col, Button, Rate, PageHeader, Modal } from "antd";
 import { CalendarOutlined, PhoneOutlined } from "@ant-design/icons";
 import Comments from "../components/Comments";
 import { useLocation } from "react-router";
@@ -35,6 +35,21 @@ const Agencyprofile = () => {
         setAgencyprof(response.data);
       });
   }, [url]);
+
+  //Modal
+  //const [isModalVisible, setIsModalVisible] = useState(false);
+
+  //const showModal = () => {
+  //setIsModalVisible(true);
+  //};
+
+  //const handleOk = () => {
+  //setIsModalVisible(false);
+  //};
+  //const handleCancel = () => {
+  //setIsModalVisible(false);
+  //};
+
   return (
     <div>
       <PageHeader
@@ -72,17 +87,9 @@ const Agencyprofile = () => {
             icon={<CalendarOutlined />}
             size={80}
             style={{ margin: 40 }}
+            //onClick={showModal()}
           >
             Set an Appointment
-          </Button>
-          <Button
-            type="primary"
-            shape="round"
-            icon={<PhoneOutlined />}
-            size={80}
-            style={{ marginLeft: 40, marginTop: 10 }}
-          >
-            Contacts
           </Button>
         </Col>
       </Row>

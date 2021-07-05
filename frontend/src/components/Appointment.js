@@ -38,7 +38,7 @@ const Appointments = () => {
 
   useEffect(() => {
     axios
-      .delete("http://127.0.0.1:8000/api/appointments/", {
+      .delete("http://127.0.0.1:8000/api/appointments/3", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -73,9 +73,6 @@ const Appointments = () => {
                   onClick={deleteapp}
                 >
                   Deny
-                </Button>
-                <Button type="primary" shape="round" size={"default"}>
-                  Confirm
                 </Button>
               </Row>
             }

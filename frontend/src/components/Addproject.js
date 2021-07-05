@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import { Form, Input, Button, Select } from "antd";
 import axios from "axios";
 
-function handleChange(value) {
-  console.log(`selected ${value}`);
-}
-
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -39,8 +35,8 @@ const tailFormItemLayout = {
 
 const AddProject = () => {
   const [form] = Form.useForm();
-  //const [optionValue, setOptionValue] = useState("");
-
+  const [optionValue, setOptionValue] = useState("");
+  const { TextArea } = Input;
   const onFinish = (values) => {
     const accessToken =
       "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0";
@@ -109,7 +105,7 @@ const AddProject = () => {
               },
             ]}
             style={{
-              width: 500,
+              width: 1000,
             }}
           >
             <Input />
@@ -125,6 +121,9 @@ const AddProject = () => {
                 message: "Please input your projects name!",
               },
             ]}
+            style={{
+              width: 1000,
+            }}
           >
             <Input />
           </Form.Item>
@@ -143,7 +142,12 @@ const AddProject = () => {
               },
             ]}
           >
-            <Input />
+            <TextArea
+              rows={10}
+              style={{
+                width: 1000,
+              }}
+            />
           </Form.Item>
 
           <Form.Item name="status" label="Project Status">
@@ -151,7 +155,7 @@ const AddProject = () => {
               labelInValue
               defaultValue={{ value: "INCOMPLETE" }}
               style={{ width: 120 }}
-              onChange={handleChange}
+              //onChange={handleChange}
             >
               <Option value="INCOMPLETE">INCOMPLETE</Option>
               <Option value="COMPLETE">COMPLETE</Option>

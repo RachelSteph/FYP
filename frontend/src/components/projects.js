@@ -3,22 +3,22 @@ import { List, Select, Button, Row, Typography, Modal } from "antd";
 import axios from "axios";
 import AddProject from "./Addproject";
 
-import { SaveOutlined } from "@ant-design/icons";
-import Report from "./Report/reportgenerator";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
 const Projects = () => {
+  //pdf creation
   function printReport() {
     const input = document.getElementById("reportpdf");
     html2canvas(input).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF();
-      pdf.addImage(imgData, "JPEG", 0, 0);
+      pdf.addImage(imgData, "JPEG", 30, 30);
       pdf.save();
     });
   }
-  const { Option } = Select;
+
+  //modal
   const [isModalVisible, setIsModalVisible] = useState(false);
   const showModal = () => {
     setIsModalVisible(true);
@@ -30,17 +30,28 @@ const Projects = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-  const { Text } = Typography;
-  const url = "http://127.0.0.1:8000/api/projects/";
-  const [projects, setProjects] = useState([]);
-  const [selectedItem, setSelectedItem] = useState("");
-  const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0";
-
   function handleChange(value) {
     console.log(value);
     setSelectedItem(value);
   }
+  //Select
+  const { Option } = Select;
+
+  function setChange(value) {
+    console.log(value);
+    //setSelectedOption(value);
+  }
+
+  //Typography
+  const { Text } = Typography;
+  //axios
+  const url = "http://127.0.0.1:8000/api/projects/";
+  const [projects, setProjects] = useState([]);
+  const [selectedItem, setSelectedItem] = useState("");
+  //const [selectedOption, setSelectedOption] = useState("");
+  const accessToken =
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0";
+
   useEffect(() => {
     axios
       .get(url, {
@@ -70,14 +81,30 @@ const Projects = () => {
             key={item.name}
             extra={
               <Row>
-                <div style={{ marginRight: 20 }}>{item.status}</div>
+                <div style={{ marginRight: 20 }}>
+                  <Select
+                    labelInValue
+                    //defaultValue={{ value: "INCOMPLETE" }}
+                    style={{ width: 120 }}
+                    onChange={setChange}
+                  >
+                    {["COMPLETE", "INCOMPLETE"].map((choice) => {
+                      return <Option value={choice}>{choice}</Option>;
+                    })}
+                    {/* <Option value="INCOMPLETE">Incomplete</Option>
+                    <Option value="COMPLETE">Complete</Option> */}
+                  </Select>
+                </div>
                 <Button
+                  style={{
+                    borderRadius: 20,
+                  }}
                   onClick={() => {
                     showModal();
                     handleChange(item);
                   }}
                 >
-                  Report
+                  Generate Project Report
                 </Button>
               </Row>
             }
@@ -89,7 +116,7 @@ const Projects = () => {
       />
 
       <Modal
-        title="Basic Modal"
+        title="PREVIEW PROJECT REPORT"
         visible={isModalVisible}
         onOk={() => {
           handleOk();
@@ -98,15 +125,47 @@ const Projects = () => {
         onCancel={handleCancel}
       >
         <div id={"reportpdf"}>
-          <Typography>PROJECT TITLE: {selectedItem.name}</Typography>
-          <Typography>PROJECT DESCRIPTION{selectedItem.description}</Typography>
-          <Typography>AGENCY NAME: {selectedItem.agent}</Typography>
-          <Typography>CURRENT PROJECT STATUS:{selectedItem.status}</Typography>
+          <Text
+            strong
+            style={{
+              marginTop: 10,
+              justifyContent: "center",
+            }}
+          >
+            <h1>Consulting Service System</h1>
+          </Text>
+          <Text
+            strong
+            italic
+            style={{
+              marginTop: 10,
+              justifyContent: "center",
+            }}
+          >
+            <h2>PROJECT TITLE:{selectedItem.name}</h2>
+          </Text>
+          <Typography
+            style={{
+              marginTop: 15,
+            }}
+          >
+            PROJECT DESCRIPTION:
+            <p>{selectedItem.description}</p>
+          </Typography>
+
+          <Typography
+            style={{
+              marginTop: 15,
+            }}
+          >
+            CURRENT PROJECT STATUS:
+            <p>{selectedItem.status}</p>
+          </Typography>
         </div>
       </Modal>
       <div style={{ marginTop: 20 }}>
         <Text strong italic>
-          Add new Project Details
+          <h2>Add new Project Details</h2>
         </Text>
         <AddProject />
       </div>

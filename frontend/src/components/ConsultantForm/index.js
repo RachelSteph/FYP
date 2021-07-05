@@ -79,7 +79,7 @@ const RegistrationForm = () => {
           marginLeft: 50,
         }}
       >
-        <Title level={2}>Consultant Sign Up Form</Title>
+        <Title level={2}>Consultant Registration Form</Title>
         <p>
           {" "}
           A registration Form for Consulting Agencies or Private Consultants.
@@ -238,6 +238,18 @@ const RegistrationForm = () => {
               }}
             >
               Register
+            </Button>
+            <Button
+              type="primary"
+              htmlType="reset"
+              style={{
+                borderRadius: 20,
+                margin: 10,
+                //backgroundColor: "lightseagreen",
+                backgroundColor: "mediumseagreen",
+              }}
+            >
+              Clear all details
             </Button>
           </Form.Item>
         </Form>
