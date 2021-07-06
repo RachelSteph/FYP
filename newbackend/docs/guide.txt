@@ -1,0 +1,11 @@
+django-admin startproject app .
+py manage.py runserver
+py manage.py startapp api
+py manage.py migrate
+py manage.py makemigrations api
+py manage.py sqlmigrate api 0001
+py manage.py migrate
+py manage.py shell
+py manage.py createsuperuser
+
+

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button, Typography, DatePicker, Select } from "antd";
 import axios from "axios";
+import moment from "moment";
 
 function onChange(value, dateString) {
   console.log("Selected Time: ", value);
@@ -44,8 +45,7 @@ const tailFormItemLayout = {
 const AppForm = () => {
   const { Option } = Select;
   const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0";
-
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NjYxOTc1LCJqdGkiOiJlMGM2ZGYxNjA1ZmM0ZjljOWQ2NzA4MGZkMGI5ZDEzYSIsInVzZXJfaWQiOjJ9.t5HsHwyGdW97MCjWa8ZFQa8DNtSVL4Jv2YYVd_Yks1g";
   const [form] = Form.useForm();
   const url = "http://127.0.0.1:8000/api/agents/";
   const [data, setData] = useState("");
@@ -62,6 +62,8 @@ const AppForm = () => {
   }, [url]);
 
   const onFinish = (values) => {
+    console.log(values);
+
     fetch("http://127.0.0.1:8000/api/appointments/", {
       method: "POST",
       headers: {
@@ -72,8 +74,8 @@ const AppForm = () => {
         agent: values.agent,
         client: values.client,
         description: values.description,
-        start_date: values.date,
-        end_date: values.date,
+        start_date: moment(`${values.date}`).format("l"),
+        end_date: moment(`${values.date}`).format("l"),
         status: values.status,
       }),
     })
@@ -177,19 +179,20 @@ const AppForm = () => {
             <Input />
           </Form.Item>
 
-          <Form.Item label="Start Date">
+          <Form.Item name="start_date" label="Start Date">
             <DatePicker
-              showTime
-              onChange={onChange}
-              onOk={onOk}
+              format="DD/MM/YYYY"
+              //showTime
+              //onChange={onChange}
+              //onOk={onOk}
               style={{ margin: 20 }}
             />
           </Form.Item>
-          <Form.Item label="End Date">
+          <Form.Item name="end_date" label="End Date">
             <DatePicker
-              showTime
-              onChange={onChange}
-              onOk={onOk}
+              //showTime
+              //onChange={onChange}
+              //={onOk}
               style={{ margin: 20 }}
             />
           </Form.Item>

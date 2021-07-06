@@ -15,6 +15,7 @@ import Agencyprofile from "./pages/agencyprofile";
 import Agencyhome from "./pages/agencyhome";
 import AllRegForm from "./components/Signupall";
 import Calendar from "./components/calendar";
+import ProtectedRoute from "./components/Signin/protectedRoute";
 import Reportchart from "./components/reportchart";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Route path="/clientform" component={ClientFormPage} exact />
         <Route path="/consultantform" component={ConsultantFormPage} exact />
         <Route path="/clienthome" component={Clienthome} exact />
+        <ProtectedRoute path="/clienthome" component={Clienthome} exact />
         <Route path="/agencyhome" component={Agencyhome} exact />
         <Route path="/categories" component={CategoriesPage} exact />
         <Route path="/ratings" component={Ratings} exact />

@@ -1,0 +1,31 @@
+agency
+  - id
+  - name
+
+comments
+  - id
+  - text
+  - client_id -> client
+
+ratings
+  - id
+  - text
+  - client_id -> client
+
+client
+  - id 
+  - name
+
+appointments
+  - id
+  - time
+  - status [BOOKED, CANCELLED, COMPLETED]
+  - descriptions
+  - client_id -> client
+  - agency_id -> agents
+
+projects
+   - id
+   - descriptions
+   - status [COMPLETE, INCOMPLETE]
+   - agency_id -> agents  

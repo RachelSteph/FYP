@@ -19,15 +19,16 @@ const tailLayout = {
 };
 
 const SignIn = () => {
-  const { history } = useHistory();
+  const history = useHistory();
 
   const onFinish = (values) => {
     const accessToken =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0";
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NjYxOTc1LCJqdGkiOiJlMGM2ZGYxNjA1ZmM0ZjljOWQ2NzA4MGZkMGI5ZDEzYSIsInVzZXJfaWQiOjJ9.t5HsHwyGdW97MCjWa8ZFQa8DNtSVL4Jv2YYVd_Yks1g";
     fetch("http://127.0.0.1:8000/api/auth/login/", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify({
         username: values.username,
@@ -36,11 +37,24 @@ const SignIn = () => {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
-
+        // console.log(response);
         //sessionStorage.setItem("token", response.token);
 
-        //history.replace("/clienthome");
+        if (response.user && response.user.user_type === "CLIENT") {
+          console.log(response);
+          localStorage.setItem("user", JSON.stringify(response.user));
+          history.replace("/clienthome");
+        }
+
+        // if (response.user && response.user.user_type === "AGENT") {
+        //   console.log(response);
+        //   history.replace("/agencyhome");
+        // }
+
+        // if (response.details) {
+        //   console.log(response);
+        //   history.replace("/agencyhome");
+        // }
       })
       .catch((error) => {
         console.log("error from submitting: " + error);
@@ -50,6 +64,7 @@ const SignIn = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   const { Text } = Typography;
 
   return (
@@ -113,7 +128,7 @@ const SignIn = () => {
             <Button
               type="primary"
               htmlType="submit"
-              //onClick={onSubmit}
+              //onClick={"/clienthome"}
               style={{ borderRadius: 20, backgroundColor: "mediumseagreen" }}
             >
               Submit

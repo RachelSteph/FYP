@@ -39,7 +39,7 @@ const AddProject = () => {
   const { TextArea } = Input;
   const onFinish = (values) => {
     const accessToken =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0";
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI4MTU3NDYwLCJqdGkiOiI4YTNhY2Y1M2RiMDQ0NmQ1ODQ2MmM4MzQwOTIxYjcxOCIsInVzZXJfaWQiOjE1fQ.Sh1UdRuR9tI44AJ_BuY8FTlBcqqF50qv4ICoYvquaOo";
 
     fetch("http://127.0.0.1:8000/api/projects/", {
       method: "POST",

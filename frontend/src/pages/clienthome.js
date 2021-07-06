@@ -23,8 +23,9 @@ const Tablayout = () => {
   const { Panel } = Collapse;
   const url = "http://127.0.0.1:8000/api/clients/";
   const [client, setClient] = useState([]);
+  const [user, setuser] = useState({});
   const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NTI3MDIyLCJqdGkiOiI3MmIwNTliZWRiZDI0MDRjOGQzNzUwZTcxNmI0Yjc0OSIsInVzZXJfaWQiOjF9.S00mGEmU-rwETWRVE53S_1iXG6_swwKn0-CcJIu_cu0";
+    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NjYxOTc1LCJqdGkiOiJlMGM2ZGYxNjA1ZmM0ZjljOWQ2NzA4MGZkMGI5ZDEzYSIsInVzZXJfaWQiOjJ9.t5HsHwyGdW97MCjWa8ZFQa8DNtSVL4Jv2YYVd_Yks1g";
 
   useEffect(() => {
     axios
@@ -37,6 +38,10 @@ const Tablayout = () => {
         setClient(response.data);
       });
   }, [url]);
+
+  useEffect(() => {
+    setuser(JSON.parse(localStorage.getItem("user")));
+  }, []);
 
   return (
     <>
@@ -63,14 +68,16 @@ const Tablayout = () => {
           </Typography>
           <Descriptions title="User Information" style={{ margin: 30 }}>
             <Descriptions.Item label="User Name">
-              {client.username}
+              {user ? user.first_name : null}
             </Descriptions.Item>
-            <Descriptions.Item label="Email">{client.email}</Descriptions.Item>
+            <Descriptions.Item label="Email">
+              {user ? user.email : null}
+            </Descriptions.Item>
             <Descriptions.Item label="Phone Number">
-              {client.phone_number}
+              {user ? user.phone_number : null}
             </Descriptions.Item>
             <Descriptions.Item label="First Name">
-              {client.first_name}
+              {user ? user.first_name : null}
             </Descriptions.Item>
           </Descriptions>
         </TabPane>
