@@ -11,6 +11,7 @@ import {
 } from "antd";
 import ClientRegForm from "../components/Clientprofile";
 import AppForm from "../components/AppForm";
+import { useHistory } from "react-router-dom";
 import Clientapplist from "../components/Clientapplist";
 import Clientprojectstatus from "../components/Clientprojectstatus";
 
@@ -21,11 +22,17 @@ function callback(key) {
 const Tablayout = () => {
   const { TabPane } = Tabs;
   const { Panel } = Collapse;
+  const history = useHistory();
+
   const url = "http://127.0.0.1:8000/api/clients/";
   const [client, setClient] = useState([]);
   const [user, setuser] = useState({});
-  const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NjYxOTc1LCJqdGkiOiJlMGM2ZGYxNjA1ZmM0ZjljOWQ2NzA4MGZkMGI5ZDEzYSIsInVzZXJfaWQiOjJ9.t5HsHwyGdW97MCjWa8ZFQa8DNtSVL4Jv2YYVd_Yks1g";
+  const accessToken = JSON.parse(localStorage.getItem("user")).access;
+
+  const onLogout = () => {
+    localStorage.removeItem("user");
+    history.replace("/");
+  };
 
   useEffect(() => {
     axios
@@ -35,12 +42,13 @@ const Tablayout = () => {
         },
       })
       .then((response) => {
+        console.log(user);
         setClient(response.data);
       });
-  }, [url]);
+  }, []);
 
   useEffect(() => {
-    setuser(JSON.parse(localStorage.getItem("user")));
+    setuser(JSON.parse(localStorage.getItem("user")).user);
   }, []);
 
   return (
@@ -53,6 +61,7 @@ const Tablayout = () => {
             type="primary"
             shape="round"
             style={{ backgroundColor: "grey" }}
+            onClick={onLogout}
           >
             {" "}
             Log Out

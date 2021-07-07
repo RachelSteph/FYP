@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Comment, Form, Button, List, Input } from "antd";
+import { Comment, Form, Button, List, Input, Typography } from "antd";
 
 const formItemLayout = {
   labelCol: {
@@ -32,48 +32,17 @@ const tailFormItemLayout = {
     },
   },
 };
-/*const data = [
-  {
-    //actions: [<span key="comment-list-reply-to-0">Reply to</span>],
-    author: 'Han Solo',
-    content: (
-      <p>
-        We supply a series of design principles, practical patterns and high quality design
-        resources (Sketch and Axure), to help people create their product prototypes beautifully and
-        efficiently.
-      </p>
-    ),
-    datetime: (
-      <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-        <span>{moment().subtract(1, 'days').fromNow()}</span>
-      </Tooltip>
-    ),
-  },
-  {
-    author: 'Han Solo',
-    content: (
-      <p>
-        We supply a series of design principles, practical patterns and high quality design
-        resources (Sketch and Axure), to help people create their product prototypes beautifully and
-        efficiently.
-      </p>
-    ),
-    datetime: (
-      <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-        <span>{moment().subtract(2, 'days').fromNow()}</span>
-      </Tooltip>
-    ),
-  },
-];*/
 
 const Comments = () => {
+  const [user, setuser] = useState({});
+
   const [form] = Form.useForm();
   const { TextArea } = Input;
+  const { Text } = Typography;
   const url = "http://127.0.0.1:8000/api/reviews/";
   const [comments, setComments] = useState([]);
   //const [uploadcomments, setUploadComments] = useState("");
-  const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NjYxOTc1LCJqdGkiOiJlMGM2ZGYxNjA1ZmM0ZjljOWQ2NzA4MGZkMGI5ZDEzYSIsInVzZXJfaWQiOjJ9.t5HsHwyGdW97MCjWa8ZFQa8DNtSVL4Jv2YYVd_Yks1g";
+  const accessToken = JSON.parse(localStorage.getItem("user")).access;
 
   useEffect(() => {
     axios
@@ -96,8 +65,8 @@ const Comments = () => {
       },
       body: JSON.stringify({
         comment: values.comment,
-        //agent: values.agent,
-        //client: values.client,
+        agent: values.agent,
+        author: values.author,
       }),
     })
       .then((response) => response.json())
@@ -117,39 +86,24 @@ const Comments = () => {
 
   return (
     <div>
-      <List
-        style={{ margin: 20, width: "auto" }}
-        className="comment-list"
-        //header={`${data.length} replies`}
-        itemLayout="horizontal"
-        dataSource={comments}
-        renderItem={(item) => (
-          <li>
-            <Comment
-              author={item.client}
-              content={item.comment}
-              datetime={item.date_issued}
-            />
-          </li>
-        )}
-      />
-      <Form
-        {...formItemLayout}
-        form={form}
-        name="register"
-        onFinish={onFinish}
-        scrollToFirstError
-        onFinishFailed={onFinishFailed}
-      >
-        <Form.Item name="comment">
-          <TextArea rows={4} style={{ margin: 10, width: 1300 }} />
-        </Form.Item>
-        <Form.Item>
-          <Button htmlType="submit" type="primary" style={{ marginLeft: 20 }}>
-            Add Comment
-          </Button>
-        </Form.Item>
-      </Form>
+      <div>
+        <List
+          style={{ margin: 20, width: "auto" }}
+          className="comment-list"
+          //header={`${data.length} replies`}
+          itemLayout="horizontal"
+          dataSource={comments}
+          renderItem={(item) => (
+            <li>
+              <Comment
+                author={item.author}
+                content={item.comment}
+                datetime={item.date_issued}
+              />
+            </li>
+          )}
+        />
+      </div>
     </div>
   );
 };

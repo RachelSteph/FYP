@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { List, Row, Button } from "antd";
 
@@ -17,10 +17,11 @@ for (let i = 0; i < 23; i++) {
 
 const Clientapplist = () => {
   //const { Text } = Typography;
+  const ref = useRef(JSON.parse(localStorage.getItem("user")));
   const url = "http://127.0.0.1:8000/api/appointments/";
   const [clientapp, setClientapp] = useState([]);
-  const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NjYxOTc1LCJqdGkiOiJlMGM2ZGYxNjA1ZmM0ZjljOWQ2NzA4MGZkMGI5ZDEzYSIsInVzZXJfaWQiOjJ9.t5HsHwyGdW97MCjWa8ZFQa8DNtSVL4Jv2YYVd_Yks1g";
+  const accessToken = JSON.parse(localStorage.getItem("user")).access;
+
   useEffect(() => {
     axios
       .get(url, {
@@ -29,9 +30,10 @@ const Clientapplist = () => {
         },
       })
       .then((response) => {
+        console.log(response);
         setClientapp(response.data);
       });
-  }, [url]);
+  }, []);
 
   return (
     <div>

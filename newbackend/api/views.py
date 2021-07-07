@@ -1,5 +1,5 @@
-from api.models import Agent, Appointment, Client, UserType
-from api.serializers import AgentSerializer, AppointmentSerializer, ClientSerializer, UserSerializer, GroupSerializer
+from api.models import Agent, Appointment, Client, Project, Review, UserType, Expertise
+from api.serializers import AgentSerializer, AppointmentSerializer, ClientSerializer, ProjectSerializer, ReviewSerializer, UserSerializer, GroupSerializer, ExpertiseSerializer
 from rest_framework import serializers, viewsets, generics, status, permissions
 from rest_framework_simplejwt.views import TokenObtainPairView
 from api.serializers import CustomTokenObtainPairSerializer
@@ -87,6 +87,30 @@ class AppointmentViewSet(viewsets.ModelViewSet):
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
-    queryset = Appointment.objects.all()
-    serializer_class = AppointmentSerializer
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    '''def get_queryset(self):
+        client = Client.objects.get(pk=self.request.user.id)
+        if client:
+            return Appointment.objects.filter(client=client)
+        agent = Agent.objects.get(pk=self.request.user.id)
+        if agent:
+           return Appointment.objects.filter(agent=agent)
+        return super().get_queryset()
+
+    def perform_create(self, serializer):
+        client = Client.objects.get(pk=self.request.user.id)
+        serializer.save(client=client)'''
+
+class ReviewViewSet(viewsets.ModelViewSet):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class ExpertiseViewSet(viewsets.ModelViewSet):
+    queryset = Expertise.objects.all()
+    serializer_class = ExpertiseSerializer
     permission_classes = [permissions.IsAuthenticated]

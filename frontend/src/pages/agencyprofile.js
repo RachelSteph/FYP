@@ -4,6 +4,7 @@ import { CalendarOutlined, PhoneOutlined } from "@ant-design/icons";
 import Comments from "../components/Comments";
 import { useLocation } from "react-router";
 import axios from "axios";
+import AppForm from "../components/AppForm";
 
 const list = [
   {
@@ -17,12 +18,13 @@ const list = [
 ];
 
 const Agencyprofile = () => {
+  const [user, setuser] = useState({});
+
   const { Text } = Typography;
   const url = "http://127.0.0.1:8000/api/agents/";
   const [agencyprof, setAgencyprof] = useState([]);
   const location = useLocation();
-  const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI4MTU3NDYwLCJqdGkiOiI4YTNhY2Y1M2RiMDQ0NmQ1ODQ2MmM4MzQwOTIxYjcxOCIsInVzZXJfaWQiOjE1fQ.Sh1UdRuR9tI44AJ_BuY8FTlBcqqF50qv4ICoYvquaOo";
+  const accessToken = JSON.parse(localStorage.getItem("user")).access;
   useEffect(() => {
     axios
       .get(url, {
@@ -36,20 +38,20 @@ const Agencyprofile = () => {
   }, [url]);
 
   //Modal
-  //const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  //const showModal = () => {
-  //setIsModalVisible(true);
-  //};
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
 
-  //const handleOk = () => {
-  //setIsModalVisible(false);
-  //};
-  //const handleCancel = () => {
-  //setIsModalVisible(false);
-  //};
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
-  return (
+  return location.state ? (
     <div>
       <PageHeader
         className="site-page-header"
@@ -58,25 +60,15 @@ const Agencyprofile = () => {
       />
       <Row gutter={[16, 8]} style={{ marginLeft: 10 }}>
         <Col span={12}>
-          {
-            // agencyprof.map(item => (
-            //     <>
-            //         <Typography style={{marginTop: 20}}><h2>{item.first_name}</h2></Typography>
-            //         <Typography style={{marginTop: 20}}><p>{item.description}</p></Typography>
-            //     </>
-            // ))
-            location.state ? (
-              <>
-                <Typography style={{ marginTop: 20 }}>
-                  <h2>{location.state.agent.first_name}</h2>
-                </Typography>
-                <Typography style={{ marginTop: 20 }}>
-                  <p>{location.state.agent.description}</p>
-                </Typography>
-                <Rate disabled defaultValue={3} style={{ margin: 10 }} />
-              </>
-            ) : null
-          }
+          <>
+            <Typography style={{ marginTop: 20 }}>
+              <h2>{location.state.agent.first_name}</h2>
+            </Typography>
+            <Typography style={{ marginTop: 20 }}>
+              <p>{location.state.agent.description}</p>
+            </Typography>
+            <Rate disabled defaultValue={3} style={{ margin: 10 }} />
+          </>
         </Col>
 
         <Col span={12}>
@@ -86,12 +78,23 @@ const Agencyprofile = () => {
             icon={<CalendarOutlined />}
             size={80}
             style={{ margin: 40 }}
-            //onClick={showModal()}
+            onClick={() => {
+              showModal();
+            }}
           >
             Set an Appointment
           </Button>
         </Col>
       </Row>
+      <Modal
+        title="APPOINTMENT FORM"
+        visible={isModalVisible}
+        onOk={() => {
+          handleOk();
+          <AppForm />;
+        }}
+        onCancel={handleCancel}
+      ></Modal>
 
       <Row style={{ marginTop: 30, marginLeft: 10 }}>
         <Col span={24}>
@@ -134,7 +137,7 @@ const Agencyprofile = () => {
         <Comments />
       </Row>
     </div>
-  );
+  ) : null;
 };
 
 export default Agencyprofile;

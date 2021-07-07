@@ -20,11 +20,12 @@ const Agencyhome = () => {
   const history = useHistory();
   const url = "http://127.0.0.1:8000/api/agents/";
   const [agency, setAgency] = useState([]);
-  const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NjYxOTc1LCJqdGkiOiJlMGM2ZGYxNjA1ZmM0ZjljOWQ2NzA4MGZkMGI5ZDEzYSIsInVzZXJfaWQiOjJ9.t5HsHwyGdW97MCjWa8ZFQa8DNtSVL4Jv2YYVd_Yks1g";
+  const [user, setuser] = useState({});
+  const accessToken = JSON.parse(localStorage.getItem("user")).access;
 
   const handleRoute = () => {
-    history.push("/");
+    localStorage.removeItem("user");
+    history.replace("/");
   };
 
   useEffect(() => {
@@ -38,6 +39,11 @@ const Agencyhome = () => {
         setAgency(response.data);
       });
   }, [url]);
+
+  useEffect(() => {
+    setuser(JSON.parse(localStorage.getItem("user")).user);
+  }, []);
+
   return (
     <div>
       <PageHeader
@@ -63,11 +69,11 @@ const Agencyhome = () => {
           </Typography>
           <Descriptions title="User Information" style={{ margin: 30 }}>
             <Descriptions.Item label="User Name">
-              {agency.firstname}
+              {user ? user.first_name : null}
             </Descriptions.Item>
             <Descriptions.Item label="Email">{agency.email}</Descriptions.Item>
             <Descriptions.Item label="Phone Number">
-              {agency.phone_number}
+              {user ? user.phone_number : null}
             </Descriptions.Item>
           </Descriptions>
         </TabPane>

@@ -45,12 +45,13 @@ const Projects = () => {
   //Typography
   const { Text } = Typography;
   //axios
+  const [user, setuser] = useState({});
+
   const url = "http://127.0.0.1:8000/api/projects/";
   const [projects, setProjects] = useState([]);
   const [selectedItem, setSelectedItem] = useState("");
   //const [selectedOption, setSelectedOption] = useState("");
-  const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NjYxOTc1LCJqdGkiOiJlMGM2ZGYxNjA1ZmM0ZjljOWQ2NzA4MGZkMGI5ZDEzYSIsInVzZXJfaWQiOjJ9.t5HsHwyGdW97MCjWa8ZFQa8DNtSVL4Jv2YYVd_Yks1g";
+  const accessToken = JSON.parse(localStorage.getItem("user")).access;
 
   useEffect(() => {
     axios
@@ -62,7 +63,20 @@ const Projects = () => {
       .then((response) => {
         setProjects(response.data);
       });
-  }, [url]);
+    setuser(JSON.parse(localStorage.getItem("user")).user);
+  }, []);
+
+  useEffect(() => {
+    console.log(projects);
+    console.log(user.id);
+    const status = projects.filter((state) => {
+      if (user.id === state.agent) {
+        return state;
+      }
+    });
+    console.log(status);
+    setProjects(status);
+  }, []);
 
   return (
     <div>

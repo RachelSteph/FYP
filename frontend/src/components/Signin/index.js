@@ -22,8 +22,7 @@ const SignIn = () => {
   const history = useHistory();
 
   const onFinish = (values) => {
-    const accessToken =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NjYxOTc1LCJqdGkiOiJlMGM2ZGYxNjA1ZmM0ZjljOWQ2NzA4MGZkMGI5ZDEzYSIsInVzZXJfaWQiOjJ9.t5HsHwyGdW97MCjWa8ZFQa8DNtSVL4Jv2YYVd_Yks1g";
+    const accessToken = "rachel";
     fetch("http://127.0.0.1:8000/api/auth/login/", {
       method: "POST",
       headers: {
@@ -37,15 +36,20 @@ const SignIn = () => {
     })
       .then((response) => response.json())
       .then((response) => {
-        // console.log(response);
+        console.log(response);
         //sessionStorage.setItem("token", response.token);
 
         if (response.user && response.user.user_type === "CLIENT") {
           console.log(response);
-          localStorage.setItem("user", JSON.stringify(response.user));
+          localStorage.setItem("user", JSON.stringify(response));
           history.replace("/clienthome");
         }
 
+        if (response.user && response.user.user_type === "AGENT") {
+          console.log(response);
+          localStorage.setItem("user", JSON.stringify(response));
+          history.replace("/agencyhome");
+        }
         // if (response.user && response.user.user_type === "AGENT") {
         //   console.log(response);
         //   history.replace("/agencyhome");

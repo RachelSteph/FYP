@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { List, Row, Button, Typography } from "antd";
 import axios from "axios";
 
@@ -16,12 +16,15 @@ for (let i = 0; i < 23; i++) {
 }*/
 
 const Appointments = () => {
+  //const ref = useRef(JSON.parse(localStorage.getItem("user")));
+
   const { Text } = Typography;
+  const [user, setuser] = useState({});
 
   const url = "http://127.0.0.1:8000/api/appointments/";
   const [appointment, setAppointment] = useState([]);
-  const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NjYxOTc1LCJqdGkiOiJlMGM2ZGYxNjA1ZmM0ZjljOWQ2NzA4MGZkMGI5ZDEzYSIsInVzZXJfaWQiOjJ9.t5HsHwyGdW97MCjWa8ZFQa8DNtSVL4Jv2YYVd_Yks1g";
+  const accessToken = JSON.parse(localStorage.getItem("user")).access;
+
   const [updateapp, setUpdateApp] = useState([]);
   const [isChanged, setisChanged] = useState(false);
 
@@ -33,9 +36,11 @@ const Appointments = () => {
         },
       })
       .then((response) => {
+        console.log(response);
         setAppointment(response.data);
       });
-  }, [url]);
+    setuser(JSON.parse(localStorage.getItem("user")));
+  }, []);
 
   // useEffect(() => {
   //   axios

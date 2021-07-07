@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { List, Row } from "antd";
 import axios from "axios";
 
 const Clientprojectstatus = () => {
+  const [user, setuser] = useState({});
   const url = "http://127.0.0.1:8000/api/projects/";
   const [clientpstatus, setClientpstatus] = useState([]);
-  const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NjYxOTc1LCJqdGkiOiJlMGM2ZGYxNjA1ZmM0ZjljOWQ2NzA4MGZkMGI5ZDEzYSIsInVzZXJfaWQiOjJ9.t5HsHwyGdW97MCjWa8ZFQa8DNtSVL4Jv2YYVd_Yks1g";
+  const accessToken = JSON.parse(localStorage.getItem("user")).access;
 
   useEffect(() => {
     axios
@@ -16,9 +16,24 @@ const Clientprojectstatus = () => {
         },
       })
       .then((response) => {
+        //console.log(response);
         setClientpstatus(response.data);
       });
-  }, [url]);
+    setuser(JSON.parse(localStorage.getItem("user")).user);
+  }, []);
+
+  useEffect(() => {
+    //console.log(clientpstatus);
+    //console.log(user.id);
+    const status = clientpstatus.filter((state) => {
+      if (user.id === state.client) {
+        return state;
+      }
+    });
+    //console.log(status);
+    setClientpstatus(status);
+  }, [clientpstatus]);
+
   return (
     <div>
       <List

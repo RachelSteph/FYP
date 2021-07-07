@@ -6,11 +6,14 @@ import { useHistory } from "react-router";
 import Searchbar from "../components/searchbar";
 
 const Agencylist = () => {
+  const [user, setuser] = useState({});
+
   const { Text } = Typography;
   const history = useHistory();
   const url = "http://127.0.0.1:8000/api/agents/";
   const [agents, setAgents] = useState([]);
   const [onSearchAgents, setonSearchAgents] = useState([]);
+  const accessToken = JSON.parse(localStorage.getItem("user")).access;
 
   const handleRoute = (item) => {
     history.push({
@@ -18,8 +21,6 @@ const Agencylist = () => {
       state: { agent: item },
     });
   };
-  const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NjYxOTc1LCJqdGkiOiJlMGM2ZGYxNjA1ZmM0ZjljOWQ2NzA4MGZkMGI5ZDEzYSIsInVzZXJfaWQiOjJ9.t5HsHwyGdW97MCjWa8ZFQa8DNtSVL4Jv2YYVd_Yks1g";
   useEffect(() => {
     axios
       .get(url, {

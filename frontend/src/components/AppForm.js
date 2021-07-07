@@ -44,8 +44,7 @@ const tailFormItemLayout = {
 
 const AppForm = () => {
   const { Option } = Select;
-  const accessToken =
-    "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NjYxOTc1LCJqdGkiOiJlMGM2ZGYxNjA1ZmM0ZjljOWQ2NzA4MGZkMGI5ZDEzYSIsInVzZXJfaWQiOjJ9.t5HsHwyGdW97MCjWa8ZFQa8DNtSVL4Jv2YYVd_Yks1g";
+  const accessToken = JSON.parse(localStorage.getItem("user")).access;
   const [form] = Form.useForm();
   const url = "http://127.0.0.1:8000/api/agents/";
   const [data, setData] = useState("");
@@ -164,7 +163,7 @@ const AppForm = () => {
 
           <Form.Item
             name="description"
-            label="Descrption"
+            label="Description"
             rules={[
               {
                 type: "string",
@@ -190,9 +189,10 @@ const AppForm = () => {
           </Form.Item>
           <Form.Item name="end_date" label="End Date">
             <DatePicker
+              format="DD/MM/YYYY"
               //showTime
               //onChange={onChange}
-              //={onOk}
+              //onOk={onOk}
               style={{ margin: 20 }}
             />
           </Form.Item>

@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from api.models import Agent, Appointment, Client, Project
+from api.models import Agent, Appointment, Client, Project, Review, Expertise
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.models import User, Group
-
+from rest_framework.relations import SlugRelatedField
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
@@ -11,7 +11,20 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         data['refresh'] = str(refresh)
         data['access'] = str(refresh.access_token)
 
-        client = Client.objects.get(pk=self.user.id)
+        
+        if Client.objects.filter(pk=self.user.id).exists():
+            client = Client.objects.get(pk=self.user.id)
+            serialized_user = ClientSerializer(client)
+            data['user'] = serialized_user.data
+            return data
+
+        if Agent.objects.filter(pk=self.user.id).exists():
+            agent = Agent.objects.get(pk=self.user.id)
+            serialized_user = AgentSerializer(agent)
+            data['user'] = serialized_user.data
+            return data
+
+        '''client = Client.objects.get(pk=self.user.id)
         if client:
             serialized_user = ClientSerializer(client)
             data['user'] = serialized_user.data
@@ -25,8 +38,7 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         serialized_user = UserSerializer(self.user)
         data['user'] = serialized_user.data
-        return data
-
+        return data'''
 
 class UserRegistrationSerializer():
     pass
@@ -49,7 +61,7 @@ class GroupSerializer(serializers.ModelSerializer):
 class AgentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Agent
-        fields = ['id', 'first_name', 'last_name', 'email', 'username', 'phone_number', 'password', 'user_type']
+        fields = ['id', 'first_name', 'last_name', 'email', 'username', 'phone_number', 'password', 'user_type', 'experienceyrs', 'description', 'address']
 
     def create(self, validated_data):
         agent = Agent.objects.create_user(**validated_data)
@@ -59,7 +71,7 @@ class AgentSerializer(serializers.ModelSerializer):
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
         model = Client
-        fields = ['id', 'first_name', 'last_name', 'email', 'username', 'phone_number', 'password', 'user_type']
+        fields = ['id', 'first_name', 'last_name', 'email', 'username', 'phone_number', 'password', 'user_type', 'address']
 
     def create(self, validated_data):
         client = Client.objects.create_user(**validated_data)
@@ -67,14 +79,33 @@ class ClientSerializer(serializers.ModelSerializer):
 
 
 class AppointmentSerializer(serializers.ModelSerializer):
-    client = serializers.ReadOnlyField(source='client.id')
-
+    #client = serializers.ReadOnlyField(source='client.id')
+    client = SlugRelatedField(slug_field="username",
+                              queryset=Client.objects.all())
+    agent = SlugRelatedField(slug_field="username",
+                              queryset=Agent.objects.all())
     class Meta:
         model = Appointment
         fields = ['id', 'description', 'start_date', 'end_date', 'status', 'agent', 'client']
 
 
 class ProjectSerializer(serializers.ModelSerializer):
+    agent = SlugRelatedField(slug_field="username",
+                              queryset=Agent.objects.all())
+
     class Meta:
         model = Project
-        fields = ['id', 'name', 'description', 'status']
+        fields = ['id', 'name', 'description','status', 'agent', 'client']
+
+class ReviewSerializer(serializers.ModelSerializer):
+    author = SlugRelatedField(slug_field="username",
+                              queryset=Client.objects.all())
+    class Meta:
+        model = Review
+        fields = '__all__'
+
+
+class ExpertiseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = '__all__'
