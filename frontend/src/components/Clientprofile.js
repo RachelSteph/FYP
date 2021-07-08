@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Typography } from "antd";
 
 const formItemLayout = {
@@ -34,11 +34,12 @@ const tailFormItemLayout = {
 
 const ClientRegForm = () => {
   const [form] = Form.useForm();
+  const [user, setuser] = useState({});
 
   const onFinish = (values) => {
     const accessToken = JSON.parse(localStorage.getItem("user")).access;
 
-    fetch("http://127.0.0.1:8000/api/clients/", {
+    fetch("http://127.0.0.1:8000/api/clients/6/", {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",

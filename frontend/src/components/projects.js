@@ -98,7 +98,7 @@ const Projects = () => {
                 <div style={{ marginRight: 20 }}>
                   <Select
                     labelInValue
-                    //defaultValue={{ value: "INCOMPLETE" }}
+                    defaultValue={{ value: "INCOMPLETE" }}
                     style={{ width: 120 }}
                     onChange={setChange}
                   >

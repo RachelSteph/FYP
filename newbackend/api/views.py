@@ -15,6 +15,9 @@ class CustomTokenObtainPairView(TokenObtainPairView):
 class UserCreateView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    http_method_names = ['get', 'post', 'delete',
+                         'put', 'patch', 'head', 'options', 'trace']
+
 
     def create(self, request, *args, **kwargs):
         user_type = request.data.get('user_type', None)
@@ -44,30 +47,45 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'post', 'delete',
+                         'put', 'patch', 'head', 'options', 'trace']
+
 
 
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'post', 'delete',
+                         'put', 'patch', 'head', 'options', 'trace']
+
 
 
 class AgentViewSet(viewsets.ModelViewSet):
     queryset = Agent.objects.all()
     serializer_class = AgentSerializer
     permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'post', 'delete',
+                         'put', 'patch', 'head', 'options', 'trace']
+
 
 
 class ClientViewSet(viewsets.ModelViewSet):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'post', 'delete',
+                         'put', 'patch', 'head', 'options', 'trace']
+
 
 
 class AppointmentViewSet(viewsets.ModelViewSet):
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
     permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'post', 'delete',
+                         'put', 'patch', 'head', 'options', 'trace']
+
 
     def list(self, request, *args, **kwargs):
         # https://www.django-rest-framework.org/api-guide/filtering/#filtering-against-the-current-user
@@ -90,6 +108,9 @@ class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'post', 'delete',
+                         'put', 'patch', 'head', 'options', 'trace']
+
 
     '''def get_queryset(self):
         client = Client.objects.get(pk=self.request.user.id)
@@ -108,9 +129,14 @@ class ReviewViewSet(viewsets.ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'post', 'delete',
+                         'put', 'patch', 'head', 'options', 'trace']
+
 
 
 class ExpertiseViewSet(viewsets.ModelViewSet):
     queryset = Expertise.objects.all()
     serializer_class = ExpertiseSerializer
     permission_classes = [permissions.IsAuthenticated]
+    http_method_names = ['get', 'post', 'delete',
+                         'put', 'patch', 'head', 'options', 'trace']

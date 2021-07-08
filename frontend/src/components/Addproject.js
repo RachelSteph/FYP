@@ -34,13 +34,13 @@ const tailFormItemLayout = {
 };
 
 const AddProject = () => {
+  const [user, setuser] = useState({});
+  const accessToken = JSON.parse(localStorage.getItem("user")).access;
+
   const [form] = Form.useForm();
   const [optionValue, setOptionValue] = useState("");
   const { TextArea } = Input;
   const onFinish = (values) => {
-    const accessToken =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI1NjYxOTc1LCJqdGkiOiJlMGM2ZGYxNjA1ZmM0ZjljOWQ2NzA4MGZkMGI5ZDEzYSIsInVzZXJfaWQiOjJ9.t5HsHwyGdW97MCjWa8ZFQa8DNtSVL4Jv2YYVd_Yks1g";
-
     fetch("http://127.0.0.1:8000/api/projects/", {
       method: "POST",
       headers: {
@@ -49,6 +49,7 @@ const AddProject = () => {
       },
       body: JSON.stringify({
         agent: values.agent,
+        client: values.client,
         name: values.name,
         status: values.status,
         description: values.description,
@@ -94,6 +95,25 @@ const AddProject = () => {
           <Form.Item
             name="agent"
             label="Agency name"
+            rules={[
+              {
+                type: "string",
+                message: "The input is not valid clientname",
+              },
+              {
+                required: true,
+                message: "Please input your clientname!",
+              },
+            ]}
+            style={{
+              width: 1000,
+            }}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="client"
+            label="Client name"
             rules={[
               {
                 type: "string",

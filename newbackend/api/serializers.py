@@ -92,6 +92,8 @@ class AppointmentSerializer(serializers.ModelSerializer):
 class ProjectSerializer(serializers.ModelSerializer):
     agent = SlugRelatedField(slug_field="username",
                               queryset=Agent.objects.all())
+    client = SlugRelatedField(slug_field="username",
+                              queryset=Client.objects.all())
 
     class Meta:
         model = Project

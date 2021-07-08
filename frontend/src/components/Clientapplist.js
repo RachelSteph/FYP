@@ -2,19 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { List, Row, Button } from "antd";
 
-/*const listData = [];
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    
-    title: `Appointment ${i}`,
-    agencyusername: `Agencyprofile`,
-    description:
-      'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    appointmenttime:
-      '12:45pm',
-  });
-}*/
-
 const Clientapplist = () => {
   //const { Text } = Typography;
   const ref = useRef(JSON.parse(localStorage.getItem("user")));

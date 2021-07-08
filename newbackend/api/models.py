@@ -73,15 +73,7 @@ class Project(models.Model):
         return f'{self.name}'
 
     
-#class Review(models.Model):
-    #agent = models.ForeignKey(
-        #Agent, related_name='comments', on_delete=models.CASCADE)
-    #author = models.ForeignKey(User, on_delete=models.CASCADE)
-    #content = TextField()
-    #date_posted = models.DateTimeField(default=timezone.now)
 
-    #def __str__(self):
-        #return str(self.author) + ', ' + self.blogpost_connected.title[:40]    
 
 
 class Review(models.Model): 
