@@ -23,7 +23,14 @@ const Clientprojectstatus = () => {
       })
       .then((response) => {
         //console.log(response);
-        setClientpstatus(response.data);
+        const status = response.data.filter((state) => {
+          console.log(state);
+          if (userData.first_name === state.client) {
+            console.log(state);
+            return state;
+          }
+        });
+        setClientpstatus(status);
         setuser(JSON.parse(localStorage.getItem("user_data")));
       });
   }, []);
@@ -31,7 +38,9 @@ const Clientprojectstatus = () => {
   useEffect(() => {
     console.log(clientpstatus);
     console.log(userData.first_name);
+
     const status = clientpstatus.filter((state) => {
+      console.log(state);
       if (userData.first_name === state.client) {
         console.log(state);
         return state;

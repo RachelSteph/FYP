@@ -37,9 +37,11 @@ const ConsultRegForm = () => {
   const [user, setuser] = useState({});
 
   const onFinish = (values) => {
-    const accessToken = JSON.parse(localStorage.getItem("user")).access;
+    const accessToken = JSON.parse(localStorage.getItem("accesstoken"));
+    console.log(JSON.parse(localStorage.getItem("user_data")).id);
+    const agent_id = JSON.parse(localStorage.getItem("user_data")).id;
 
-    fetch("http://127.0.0.1:8000/api/agents/", {
+    fetch("http://127.0.0.1:8000/api/agents/" + agent_id + "/", {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
@@ -73,8 +75,9 @@ const ConsultRegForm = () => {
   //Modal Code
   function success() {
     Modal.success({
-      content: "Changes done successfullu!",
+      content: "Changes done successfully!",
     });
+    window.location.reload();
   }
   return (
     <div>

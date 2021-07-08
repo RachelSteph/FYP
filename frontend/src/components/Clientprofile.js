@@ -39,34 +39,35 @@ const ClientRegForm = () => {
   const onFinish = (values) => {
     const accessToken = JSON.parse(localStorage.getItem("user")).access;
 
-    console.log(localStorage.getItem("user"));
+    console.log(JSON.parse(localStorage.getItem("user_data")).id);
+    const cliend_id = JSON.parse(localStorage.getItem("user_data")).id;
 
-    //   fetch("http://127.0.0.1:8000/api/clients/", {
-    //     method: "PATCH",
-    //     headers: {
-    //       "Content-type": "application/json",
-    //       Authorization: `Bearer ${accessToken}`,
-    //     },
-    //     body: JSON.stringify({
-    //       first_name: values.first_name,
-    //       last_name: values.last_name,
-    //       email: values.email,
-    //       username: values.username,
-    //       //password: values.password,
-    //       phone_number: values.phone_number,
-    //       address: values.address,
-    //     }),
-    //   })
-    //     .then((response) => response.json())
-    //     .then((response) => {
-    //       console.log(response);
-    //       //sessionStorage.setItem("token", response.token);
+    fetch("http://127.0.0.1:8000/api/clients/" + cliend_id + "/", {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({
+        first_name: values.first_name,
+        last_name: values.last_name,
+        email: values.email,
+        username: values.username,
+        //password: values.password,
+        phone_number: values.phone_number,
+        address: values.address,
+      }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        //sessionStorage.setItem("token", response.token);
 
-    //       //history.replace("/clientdrawer");
-    //     })
-    //     .catch((error) => {
-    //       console.log("error from submitting: " + error);
-    //     });
+        //history.replace("/clientdrawer");
+      })
+      .catch((error) => {
+        console.log("error from submitting: " + error);
+      });
   };
 
   const { Title } = Typography;
