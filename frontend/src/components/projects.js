@@ -51,8 +51,8 @@ const Projects = () => {
   const [projects, setProjects] = useState([]);
   const [selectedItem, setSelectedItem] = useState("");
   //const [selectedOption, setSelectedOption] = useState("");
-  const accessToken = JSON.parse(localStorage.getItem("user")).access;
-
+  const accessToken = JSON.parse(localStorage.getItem("accesstoken"));
+  const userData = JSON.parse(localStorage.getItem("user_data"));
   useEffect(() => {
     axios
       .get(url, {
@@ -68,9 +68,9 @@ const Projects = () => {
 
   useEffect(() => {
     console.log(projects);
-    console.log(user.id);
+    console.log(userData.id);
     const status = projects.filter((state) => {
-      if (user.id === state.agent) {
+      if (userData.id === state.agent) {
         return state;
       }
     });

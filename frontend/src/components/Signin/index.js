@@ -41,13 +41,20 @@ const SignIn = () => {
 
         if (response.user && response.user.user_type === "CLIENT") {
           console.log(response);
+          const { access: ACCESSTOKEN, user: USER } = response;
           localStorage.setItem("user", JSON.stringify(response));
+          localStorage.setItem("user_data", JSON.stringify(USER));
+          localStorage.setItem("accesstoken", JSON.stringify(ACCESSTOKEN));
           history.replace("/clienthome");
         }
 
         if (response.user && response.user.user_type === "AGENT") {
           console.log(response);
-          localStorage.setItem("user", JSON.stringify(response));
+          const { access: ACCESSTOKEN, user: USER } = response;
+          localStorage.setItem("user", JSON.stringify(USER));
+          localStorage.setItem("user_data", JSON.stringify(USER));
+          localStorage.setItem("accesstoken", JSON.stringify(ACCESSTOKEN));
+          // localStorage.setItem("user", JSON.stringify(response));
           history.replace("/agencyhome");
         }
         // if (response.user && response.user.user_type === "AGENT") {
@@ -122,10 +129,6 @@ const SignIn = () => {
             rules={[{ required: true, message: "Please input your password!" }]}
           >
             <Input.Password />
-          </Form.Item>
-
-          <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-            <Checkbox>Remember me</Checkbox>
           </Form.Item>
 
           <Form.Item {...tailLayout}>

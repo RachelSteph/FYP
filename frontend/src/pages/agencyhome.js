@@ -21,7 +21,11 @@ const Agencyhome = () => {
   const url = "http://127.0.0.1:8000/api/agents/";
   const [agency, setAgency] = useState([]);
   const [user, setuser] = useState({});
-  const accessToken = JSON.parse(localStorage.getItem("user")).access;
+  const accessToken = JSON.parse(localStorage.getItem("accesstoken"));
+  const userData = JSON.parse(localStorage.getItem("user_data"));
+  // const accessToken = JSON.parse(localStorage.getItem("user")).access;
+  console.log(accessToken);
+  console.log(userData);
 
   const handleRoute = () => {
     localStorage.removeItem("user");
@@ -69,11 +73,13 @@ const Agencyhome = () => {
           </Typography>
           <Descriptions title="User Information" style={{ margin: 30 }}>
             <Descriptions.Item label="User Name">
-              {user ? user.first_name : null}
+              {user ? user.first_name : userData.first_name}
             </Descriptions.Item>
-            <Descriptions.Item label="Email">{agency.email}</Descriptions.Item>
+            <Descriptions.Item label="Email">
+              {user ? user.phone_number : userData.email}
+            </Descriptions.Item>
             <Descriptions.Item label="Phone Number">
-              {user ? user.phone_number : null}
+              {user ? user.phone_number : userData.phone_number}
             </Descriptions.Item>
           </Descriptions>
         </TabPane>

@@ -8,11 +8,12 @@ const Appointments = () => {
   const { Text } = Typography;
   const [user, setuser] = useState({});
 
-  const url = "http://127.0.0.1:8000/api/appointments/";
+  const userData = JSON.parse(localStorage.getItem("user_data"));
+  const url = "http://127.0.0.1:8000/api/appointments/" + userData.id;
   const [appointment, setAppointment] = useState([]);
-  const accessToken = JSON.parse(localStorage.getItem("user")).access;
+  //const accessToken = JSON.parse(localStorage.getItem("user")).access;
   //const [isChanged, setisChanged] = useState(false);
-
+  const accessToken = JSON.parse(localStorage.getItem("accesstoken"));
   const [updateapp, setUpdateApp] = useState([]);
   const [isChanged, setisChanged] = useState(false);
 
@@ -27,20 +28,20 @@ const Appointments = () => {
         console.log(response);
         setAppointment(response.data);
       });
-    setuser(JSON.parse(localStorage.getItem("user")).user);
+    //setuser(JSON.parse(localStorage.getItem("user")).user);
   }, []);
 
-  useEffect(() => {
-    console.log(appointment);
-    console.log(user.id);
-    const status = appointment.filter((state) => {
-      if (user.id === state.agent) {
-        return state;
-      }
-    });
-    console.log(status);
-    setAppointment(status);
-  }, []);
+  // useEffect(() => {
+  //   console.log(appointment);
+  //   console.log(userData);
+  //   const status = appointment.filter((state) => {
+  //     if (userData.id === state.agent) {
+  //       return state;
+  //     }
+  //   });
+  //   console.log(status);
+  //   setAppointment(status);
+  // }, []);
 
   // useEffect(() => {
   //   axios

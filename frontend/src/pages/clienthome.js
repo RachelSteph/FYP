@@ -27,7 +27,8 @@ const Tablayout = () => {
   const url = "http://127.0.0.1:8000/api/clients/";
   const [client, setClient] = useState([]);
   const [user, setuser] = useState({});
-  const accessToken = JSON.parse(localStorage.getItem("user")).access;
+  const accessToken = JSON.parse(localStorage.getItem("accesstoken"));
+  // const accessToken = JSON.parse(localStorage.getItem("user")).access;
 
   const onLogout = () => {
     localStorage.removeItem("user");

@@ -91,7 +91,7 @@ const Agencyprofile = () => {
         visible={isModalVisible}
         onOk={() => {
           handleOk();
-          <AppForm />;
+          <Typography>Book an appointment</Typography>;
         }}
         onCancel={handleCancel}
       ></Modal>

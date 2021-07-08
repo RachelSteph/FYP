@@ -4,11 +4,17 @@ import axios from "axios";
 
 const Clientprojectstatus = () => {
   const [user, setuser] = useState({});
+
   const url = "http://127.0.0.1:8000/api/projects/";
   const [clientpstatus, setClientpstatus] = useState([]);
-  const accessToken = JSON.parse(localStorage.getItem("user")).access;
+  const accessToken = JSON.parse(localStorage.getItem("accesstoken"));
+  const userData = JSON.parse(localStorage.getItem("user_data"));
+  //const accessToken = JSON.parse(localStorage.getItem("user")).access;
+
+  var list = [];
 
   useEffect(() => {
+    // console.log(localStorage.getItem("user_data"));
     axios
       .get(url, {
         headers: {
@@ -18,21 +24,22 @@ const Clientprojectstatus = () => {
       .then((response) => {
         //console.log(response);
         setClientpstatus(response.data);
+        setuser(JSON.parse(localStorage.getItem("user_data")));
       });
-    setuser(JSON.parse(localStorage.getItem("user")).user);
   }, []);
 
   useEffect(() => {
-    //console.log(clientpstatus);
-    //console.log(user.id);
+    console.log(clientpstatus);
+    console.log(userData.first_name);
     const status = clientpstatus.filter((state) => {
-      if (user.id === state.client) {
+      if (userData.first_name === state.client) {
+        console.log(state);
         return state;
       }
     });
     //console.log(status);
     setClientpstatus(status);
-  }, [clientpstatus]);
+  }, []);
 
   return (
     <div>

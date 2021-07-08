@@ -44,6 +44,7 @@ const tailFormItemLayout = {
 
 const AppForm = () => {
   const { Option } = Select;
+  // const accessToken = JSON.parse(localStorage.getItem("accesstoken"));
   const accessToken = JSON.parse(localStorage.getItem("user")).access;
   const [form] = Form.useForm();
   const url = "http://127.0.0.1:8000/api/agents/";
